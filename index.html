@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Discover your unofficial Wilbury name.">
+  <meta property="og:title" content="What Is Your Wilbury Name?">
+  <meta property="og:description" content="Someday everybody gonna be a Wilbury.">
   <title>What Is Your Wilbury Name?</title>
   <style>
     :root {
@@ -69,7 +71,7 @@
     }
 
     .generator {
-      padding: 0 6.2% 22px;
+      padding: 0 6.2% 16px;
     }
 
     .field-label {
@@ -135,13 +137,11 @@
       text-wrap: balance;
     }
 
-    .name-panel.result-mode .name-input {
-      display: none;
-    }
+    .name-panel.result-mode .name-input { display: none; }
 
     .name-panel.result-mode .result-name {
       display: block;
-      animation: reveal .28s ease;
+      animation: stamp .42s cubic-bezier(.2,.8,.2,1);
     }
 
     .action-button {
@@ -168,17 +168,62 @@
       box-shadow: 5px 5px 0 rgba(21,17,13,.2);
     }
 
-    .action-button:hover {
-      filter: brightness(1.04);
+    .action-button:hover,
+    .utility-button:hover { filter: brightness(1.04); }
+
+    .action-button:active,
+    .utility-button:active {
+      transform: translate(2px, 2px);
     }
 
-    .action-button:active {
-      transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0 rgba(21,17,13,.2);
+    .utilities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .utility-button {
+      border: 2px solid var(--ink);
+      padding: 9px 12px;
+      cursor: pointer;
+      color: var(--cream);
+      background: var(--ink);
+      font: inherit;
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: .055em;
+      text-transform: uppercase;
+    }
+
+    .utility-button.secondary {
+      color: var(--ink);
+      background: rgba(234,214,167,.7);
+    }
+
+    .result-tools {
+      display: none;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .result-tools.visible { display: flex; }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 12px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      opacity: .82;
     }
 
     .photo-wrap {
-      padding: 0 3.4% 34px;
+      padding: 4px 3.4% 34px;
     }
 
     .photo {
@@ -188,22 +233,56 @@
       transform: rotate(-.35deg);
       filter: contrast(1.04);
       box-shadow: 8px 9px 0 rgba(21,17,13,.18);
+      transition: transform .35s ease;
     }
 
-    .copy-button {
+    .photo-wrap.inducted .photo {
+      transform: rotate(-.35deg) translateY(5px);
+    }
+
+    .membership-card {
       display: none;
-      margin: 14px auto 0;
-      border: 0;
-      padding: 9px 14px;
-      cursor: pointer;
-      color: var(--cream);
-      background: var(--ink);
+      margin: 18px 6.2% 0;
+      padding: 20px;
+      border: 4px solid var(--ink);
+      background:
+        linear-gradient(rgba(234,214,167,.92), rgba(234,214,167,.92)),
+        repeating-linear-gradient(
+          -8deg,
+          transparent 0 6px,
+          rgba(0,0,0,.025) 6px 7px
+        );
+      text-align: center;
+      box-shadow: 6px 7px 0 rgba(21,17,13,.18);
+      transform: rotate(-.4deg);
+    }
+
+    .membership-card.visible {
+      display: block;
+      animation: reveal .35s ease;
+    }
+
+    .membership-card small {
+      display: block;
       font-weight: 900;
-      letter-spacing: .07em;
+      letter-spacing: .18em;
       text-transform: uppercase;
     }
 
-    .copy-button.visible { display: block; }
+    .membership-card h2 {
+      margin: 10px 0 6px;
+      color: var(--red);
+      font-family: Arial Black, Arial, sans-serif;
+      font-size: clamp(1.8rem, 5vw, 3.4rem);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .membership-card p {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+    }
 
     footer {
       padding: 0 28px 28px;
@@ -213,30 +292,23 @@
       opacity: .68;
     }
 
+    @keyframes stamp {
+      0% { opacity: 0; transform: scale(1.35) rotate(-2deg); filter: blur(2px); }
+      55% { opacity: 1; transform: scale(.96) rotate(.5deg); filter: blur(0); }
+      100% { transform: scale(1) rotate(0); }
+    }
+
     @keyframes reveal {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 560px) {
       body { padding: 0; }
-
-      .site {
-        width: 100%;
-        box-shadow: none;
-      }
-
-      .field-row {
-        grid-template-columns: 1fr;
-      }
-
-      .action-button {
-        min-height: 58px;
-      }
-
-      .photo-wrap {
-        padding-top: 8px;
-      }
+      .site { width: 100%; box-shadow: none; }
+      .field-row { grid-template-columns: 1fr; }
+      .action-button { min-height: 58px; }
+      .status-row { flex-direction: column; gap: 4px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -270,12 +342,34 @@
         <button class="action-button" id="actionButton" type="submit">Find Out</button>
       </div>
 
-      <button class="copy-button" id="copyButton" type="button">Copy My Name</button>
+      <div class="utilities">
+        <button class="utility-button secondary" id="randomButton" type="button">Random Name</button>
+        <button class="utility-button secondary" id="soundButton" type="button">Sound: On</button>
+      </div>
+
+      <div class="result-tools" id="resultTools">
+        <button class="utility-button" id="copyButton" type="button">Copy My Name</button>
+        <button class="utility-button" id="shareButton" type="button">Copy Share Link</button>
+        <button class="utility-button" id="cardButton" type="button">Make Membership Card</button>
+      </div>
+
+      <div class="status-row">
+        <span id="counterText">0 Wilburys inducted on this device</span>
+        <span id="statusText"></span>
+      </div>
     </form>
 
-    <div class="photo-wrap">
+    <section class="membership-card" id="membershipCard" aria-live="polite">
+      <small>Official Family Registry</small>
+      <h2 id="cardName"></h2>
+      <p>Someday everybody gonna be a Wilbury.</p>
+    </section>
+
+    <div class="photo-wrap" id="photoWrap">
       <img class="photo" src="wilburys-photo.png" alt="Vintage-style photograph of the Traveling Wilburys">
     </div>
+
+    <canvas id="cardCanvas" width="1200" height="700" hidden></canvas>
 
     <footer>
       Fan-made novelty project. Not affiliated with the Traveling Wilburys,
@@ -286,12 +380,19 @@
   <script>
     const officialAliases = {
       jeff: "Otis Wilbury",
+      "jeff lynne": "Otis Wilbury",
       bob: "Lucky Wilbury",
       robert: "Lucky Wilbury",
+      "bob dylan": "Lucky Wilbury",
       george: "Nelson Wilbury",
+      "george harrison": "Nelson Wilbury",
       tom: "Charlie T. Wilbury Jr.",
       thomas: "Charlie T. Wilbury Jr.",
-      roy: "Lefty Wilbury"
+      "tom petty": "Charlie T. Wilbury Jr.",
+      roy: "Lefty Wilbury",
+      "roy orbison": "Lefty Wilbury",
+      dhani: "Wilbury By Blood",
+      "dhani harrison": "Wilbury By Blood"
     };
 
     const maleAliases = [
@@ -365,6 +466,12 @@
       "spiros","stavros","theo","vasilis","yiannis"
     ]);
 
+    const randomCivilianNames = [
+      "Martha Bell","Johnny Dean","Sadie Rose","Arthur Cole","Clara June",
+      "Walter Pike","Mabel Quinn","Rosie Lane","Harold Finch","Daisy Moore",
+      "Frank Bennett","Etta Jameson","Nora Wells","George Cooper","Lucy Gray"
+    ];
+
     const maleMiddles = ["","",""," B."," C."," J."," Ray"," Lee"," Earl"," Dean"," Joe"," Lou"];
     const femaleMiddles = ["","",""," B."," C."," J."," Mae"," June"," Pearl"," Lou"," Belle"," Rose"];
     const suffixes = ["Wilbury","Wilbury","Wilbury","Wilbury","Wilbury Jr.","Wilbury III"];
@@ -378,15 +485,23 @@
       return hash >>> 0;
     }
 
+    function clean(value) {
+      return value.trim().replace(/\s+/g, " ");
+    }
+
     function firstName(value) {
-      return value.trim().split(/\s+/)[0].toLowerCase().replace(/[^a-z'-]/g, "");
+      return clean(value).split(" ")[0].toLowerCase().replace(/[^a-z'-]/g, "");
     }
 
     function generateName(fullName) {
-      const first = firstName(fullName);
+      const cleaned = clean(fullName);
+      const fullKey = cleaned.toLowerCase();
+      const first = firstName(cleaned);
+
+      if (officialAliases[fullKey]) return officialAliases[fullKey];
       if (officialAliases[first]) return officialAliases[first];
 
-      const seed = hashString(fullName.trim().toLowerCase());
+      const seed = hashString(fullKey);
       let aliases;
       let middles;
 
@@ -410,50 +525,218 @@
     const resultName = document.getElementById("resultName");
     const label = document.getElementById("fieldLabel");
     const actionButton = document.getElementById("actionButton");
+    const randomButton = document.getElementById("randomButton");
+    const soundButton = document.getElementById("soundButton");
+    const resultTools = document.getElementById("resultTools");
     const copyButton = document.getElementById("copyButton");
+    const shareButton = document.getElementById("shareButton");
+    const cardButton = document.getElementById("cardButton");
+    const counterText = document.getElementById("counterText");
+    const statusText = document.getElementById("statusText");
+    const membershipCard = document.getElementById("membershipCard");
+    const cardName = document.getElementById("cardName");
+    const photoWrap = document.getElementById("photoWrap");
+    const canvas = document.getElementById("cardCanvas");
 
     let showingResult = false;
+    let currentCivilianName = "";
+    let currentAlias = "";
+    let soundEnabled = localStorage.getItem("wilburySound") !== "off";
+    let count = Number(localStorage.getItem("wilburyCount") || 0);
+
+    function updateCounter() {
+      counterText.textContent = `${count} Wilbur${count === 1 ? "y" : "ys"} inducted on this device`;
+    }
+
+    function setStatus(message) {
+      statusText.textContent = message;
+      clearTimeout(setStatus.timer);
+      setStatus.timer = setTimeout(() => statusText.textContent = "", 1800);
+    }
+
+    function playChord() {
+      if (!soundEnabled) return;
+
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+
+      const ctx = new AudioContext();
+      const now = ctx.currentTime;
+      const frequencies = [196, 246.94, 293.66, 392];
+
+      frequencies.forEach((frequency, index) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "triangle";
+        osc.frequency.value = frequency;
+
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(.045, now + index * .035 + .02);
+        gain.gain.exponentialRampToValueAtTime(.001, now + .75 + index * .04);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + index * .035);
+        osc.stop(now + .85 + index * .04);
+      });
+
+      setTimeout(() => ctx.close(), 1100);
+    }
+
+    function showResult(civilianName, pushUrl = true) {
+      currentCivilianName = clean(civilianName);
+      currentAlias = generateName(currentCivilianName);
+
+      resultName.textContent = currentAlias;
+      panel.classList.add("result-mode");
+      label.textContent = "Your Wilbury name";
+      actionButton.textContent = "Again";
+      resultTools.classList.add("visible");
+      membershipCard.classList.remove("visible");
+      photoWrap.classList.add("inducted");
+      showingResult = true;
+
+      count += 1;
+      localStorage.setItem("wilburyCount", String(count));
+      updateCounter();
+      playChord();
+
+      if (pushUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("name", currentCivilianName);
+        history.replaceState({}, "", url);
+      }
+    }
+
+    function resetGenerator() {
+      showingResult = false;
+      panel.classList.remove("result-mode");
+      label.textContent = "Enter your name";
+      actionButton.textContent = "Find Out";
+      resultTools.classList.remove("visible");
+      membershipCard.classList.remove("visible");
+      photoWrap.classList.remove("inducted");
+      input.value = "";
+      input.focus();
+
+      const url = new URL(window.location.href);
+      url.searchParams.delete("name");
+      history.replaceState({}, "", url);
+    }
 
     form.addEventListener("submit", event => {
       event.preventDefault();
 
       if (showingResult) {
-        showingResult = false;
-        panel.classList.remove("result-mode");
-        label.textContent = "Enter your name";
-        actionButton.textContent = "Find Out";
-        copyButton.classList.remove("visible");
-        input.value = "";
-        input.focus();
+        resetGenerator();
         return;
       }
 
-      const value = input.value.trim();
-      if (!value) {
-        input.focus();
-        return;
-      }
+      const value = clean(input.value);
+      if (!value) return input.focus();
 
-      resultName.textContent = generateName(value);
-      panel.classList.add("result-mode");
-      label.textContent = "Your Wilbury name";
-      actionButton.textContent = "Again";
-      copyButton.classList.add("visible");
-      showingResult = true;
+      showResult(value);
+    });
+
+    randomButton.addEventListener("click", () => {
+      const randomName = randomCivilianNames[Math.floor(Math.random() * randomCivilianNames.length)];
+      input.value = randomName;
+      if (showingResult) resetGenerator();
+      input.value = randomName;
+      showResult(randomName);
+    });
+
+    soundButton.addEventListener("click", () => {
+      soundEnabled = !soundEnabled;
+      localStorage.setItem("wilburySound", soundEnabled ? "on" : "off");
+      soundButton.textContent = `Sound: ${soundEnabled ? "On" : "Off"}`;
+      if (soundEnabled) playChord();
     });
 
     copyButton.addEventListener("click", async () => {
       try {
-        await navigator.clipboard.writeText(resultName.textContent);
-        copyButton.textContent = "Copied";
+        await navigator.clipboard.writeText(currentAlias);
+        setStatus("Name copied");
       } catch {
-        copyButton.textContent = "Copy failed";
+        setStatus("Copy failed");
+      }
+    });
+
+    shareButton.addEventListener("click", async () => {
+      const url = new URL(window.location.href);
+      url.searchParams.set("name", currentCivilianName);
+      const message = `I'm ${currentAlias}. Find your Wilbury name: ${url}`;
+
+      try {
+        await navigator.clipboard.writeText(message);
+        setStatus("Share link copied");
+      } catch {
+        setStatus("Copy failed");
+      }
+    });
+
+    cardButton.addEventListener("click", () => {
+      cardName.textContent = currentAlias;
+      membershipCard.classList.add("visible");
+
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#b58b4d";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < 1800; i++) {
+        const shade = 110 + Math.floor(Math.random() * 55);
+        ctx.fillStyle = `rgba(${shade},${shade - 25},${shade - 55},.08)`;
+        ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 2, 2);
       }
 
-      setTimeout(() => {
-        copyButton.textContent = "Copy My Name";
-      }, 1400);
+      ctx.strokeStyle = "#15110d";
+      ctx.lineWidth = 12;
+      ctx.strokeRect(40, 40, 1120, 620);
+
+      ctx.fillStyle = "#b6191c";
+      ctx.fillRect(70, 75, 1060, 150);
+
+      ctx.fillStyle = "#ead6a7";
+      ctx.font = "900 58px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("OFFICIAL WILBURY FAMILY REGISTRY", 600, 170);
+
+      ctx.fillStyle = "#15110d";
+      ctx.font = "900 44px Arial";
+      ctx.fillText("THIS CERTIFIES THAT", 600, 300);
+
+      let size = 88;
+      do {
+        ctx.font = `900 ${size}px Arial`;
+        size -= 2;
+      } while (ctx.measureText(currentAlias.toUpperCase()).width > 1040 && size > 42);
+
+      ctx.fillStyle = "#b6191c";
+      ctx.fillText(currentAlias.toUpperCase(), 600, 430);
+
+      ctx.fillStyle = "#15110d";
+      ctx.font = "italic 38px Georgia";
+      ctx.fillText("Someday everybody gonna be a Wilbury.", 600, 525);
+
+      ctx.font = "800 25px Arial";
+      ctx.fillText("UNOFFICIAL • FAN-MADE • HANDLE WITH CARE", 600, 610);
+
+      const link = document.createElement("a");
+      link.download = `${currentAlias.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}-membership-card.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+
+      setStatus("Membership card saved");
     });
+
+    soundButton.textContent = `Sound: ${soundEnabled ? "On" : "Off"}`;
+    updateCounter();
+
+    const sharedName = new URL(window.location.href).searchParams.get("name");
+    if (sharedName) {
+      input.value = sharedName;
+      showResult(sharedName, false);
+    }
   </script>
 </body>
 </html>

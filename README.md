@@ -1,3 +1,3 @@
-# Wilbury Name Generator
+# Wilbury Name Generator Deluxe
 
 GitHub Pages-ready static website.
