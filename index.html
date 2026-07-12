@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Discover your unofficial Wilbury name.">
+  <meta name="description" content="Discover your unofficial Wilbury name and travel document.">
   <meta property="og:title" content="What Is Your Wilbury Name?">
   <meta property="og:description" content="Someday everybody gonna be a Wilbury.">
   <title>What Is Your Wilbury Name?</title>
   <style>
     :root {
-      --paper: #aa8349;
-      --paper-light: #c19a5c;
-      --ink: #15110d;
-      --red: #b6191c;
-      --cream: #ead6a7;
+      --paper: #a67f45;
+      --paper-light: #c59b5c;
+      --ink: #17120e;
+      --red: #ae181b;
+      --cream: #ead3a0;
+      --faded: rgba(23,18,14,.68);
     }
 
     * { box-sizing: border-box; }
@@ -28,22 +29,41 @@
       place-items: center;
       padding: 22px;
       color: var(--ink);
-      background: #765a34;
-      font-family: Arial, Helvetica, sans-serif;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.02) 0 1px, rgba(0,0,0,.025) 1px 3px),
+        #70532f;
+      font-family: "Courier New", Courier, monospace;
     }
 
+    button, input { font: inherit; }
+
     .site {
-      width: min(100%, 768px);
+      position: relative;
+      width: min(100%, 790px);
       overflow: hidden;
       background:
-        repeating-linear-gradient(
-          90deg,
-          rgba(255,255,255,.025) 0 1px,
-          rgba(0,0,0,.025) 1px 3px
-        ),
+        radial-gradient(circle at 18% 10%, rgba(255,255,255,.06), transparent 22%),
+        radial-gradient(circle at 82% 86%, rgba(0,0,0,.06), transparent 30%),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.02) 0 1px, rgba(0,0,0,.025) 1px 3px),
         linear-gradient(var(--paper-light), var(--paper));
-      box-shadow: 0 28px 80px rgba(0,0,0,.45);
+      box-shadow: 0 28px 80px rgba(0,0,0,.46);
     }
+
+    .site::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .16;
+      background:
+        radial-gradient(circle at 10% 15%, rgba(0,0,0,.5) 0 1px, transparent 2px),
+        radial-gradient(circle at 78% 32%, rgba(0,0,0,.45) 0 1px, transparent 2px),
+        radial-gradient(circle at 34% 76%, rgba(0,0,0,.42) 0 1px, transparent 2px);
+      background-size: 110px 110px, 150px 150px, 190px 190px;
+      mix-blend-mode: multiply;
+    }
+
+    .content { position: relative; z-index: 1; }
 
     .header-art {
       display: block;
@@ -52,12 +72,12 @@
     }
 
     .quote {
-      margin: 18px 24px 16px;
+      margin: 17px 24px 15px;
       text-align: center;
-      font-size: clamp(.9rem, 2.4vw, 1.28rem);
+      font-size: clamp(.88rem, 2.3vw, 1.18rem);
       font-weight: 900;
       font-style: italic;
-      letter-spacing: .025em;
+      letter-spacing: .035em;
       text-transform: uppercase;
     }
 
@@ -68,19 +88,19 @@
       height: 3px;
       margin: 10px auto 0;
       background: var(--red);
+      box-shadow: 1px 1px 0 rgba(0,0,0,.18);
     }
 
     .generator {
-      padding: 0 6.2% 16px;
+      padding: 0 6.2% 14px;
     }
 
     .field-label {
       display: block;
-      margin: 0 0 9px;
-      font-size: clamp(.72rem, 2vw, 1rem);
+      margin: 0 0 8px;
+      font-size: clamp(.72rem, 1.9vw, .98rem);
       font-weight: 900;
-      font-style: italic;
-      letter-spacing: .07em;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
 
@@ -92,7 +112,7 @@
 
     .name-panel,
     .action-button {
-      min-height: clamp(64px, 9vw, 94px);
+      min-height: clamp(66px, 9vw, 96px);
       border: 4px solid var(--ink);
     }
 
@@ -102,12 +122,9 @@
       align-items: center;
       padding: 0 clamp(16px, 4vw, 34px);
       background:
-        linear-gradient(rgba(232,211,163,.92), rgba(232,211,163,.92)),
-        repeating-linear-gradient(
-          90deg,
-          rgba(255,255,255,.03) 0 1px,
-          rgba(0,0,0,.025) 1px 3px
-        );
+        linear-gradient(rgba(232,211,163,.93), rgba(232,211,163,.93)),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, rgba(0,0,0,.025) 1px 3px);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);
     }
 
     .name-input,
@@ -118,30 +135,30 @@
       outline: 0;
       color: var(--ink);
       background: transparent;
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: "Courier New", Courier, monospace;
       font-size: clamp(1.05rem, 3.2vw, 2rem);
       line-height: 1.1;
     }
 
     .name-input::placeholder {
-      color: rgba(21,17,13,.55);
+      color: rgba(23,18,14,.52);
       opacity: 1;
     }
 
     .result-name {
       display: none;
-      font-family: Arial Black, Arial, Helvetica, sans-serif;
       font-weight: 900;
       text-align: center;
       text-transform: uppercase;
       text-wrap: balance;
+      letter-spacing: -.015em;
     }
 
     .name-panel.result-mode .name-input { display: none; }
 
     .name-panel.result-mode .result-name {
       display: block;
-      animation: stamp .42s cubic-bezier(.2,.8,.2,1);
+      animation: stamp .42s cubic-bezier(.2,.82,.2,1);
     }
 
     .action-button {
@@ -152,20 +169,14 @@
       cursor: pointer;
       color: var(--cream);
       background:
-        linear-gradient(rgba(182,25,28,.96), rgba(182,25,28,.96)),
-        repeating-linear-gradient(
-          0deg,
-          transparent 0 6px,
-          rgba(0,0,0,.04) 6px 7px
-        );
-      font-family: Arial Black, Arial, Helvetica, sans-serif;
-      font-size: clamp(.9rem, 3.1vw, 2rem);
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: .015em;
+        linear-gradient(rgba(174,24,27,.96), rgba(174,24,27,.96)),
+        repeating-linear-gradient(0deg, transparent 0 6px, rgba(0,0,0,.04) 6px 7px);
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      font-size: clamp(.95rem, 3.15vw, 2.15rem);
+      letter-spacing: .025em;
       text-transform: uppercase;
       white-space: nowrap;
-      box-shadow: 5px 5px 0 rgba(21,17,13,.2);
+      box-shadow: 5px 5px 0 rgba(23,18,14,.2);
     }
 
     .action-button:hover,
@@ -176,21 +187,24 @@
       transform: translate(2px, 2px);
     }
 
-    .utilities {
+    .utilities,
+    .result-tools {
       display: flex;
       flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 12px;
+      gap: 8px;
+      margin-top: 11px;
     }
+
+    .result-tools { display: none; }
+    .result-tools.visible { display: flex; }
 
     .utility-button {
       border: 2px solid var(--ink);
-      padding: 9px 12px;
+      padding: 9px 11px;
       cursor: pointer;
       color: var(--cream);
       background: var(--ink);
-      font: inherit;
-      font-size: .72rem;
+      font-size: .69rem;
       font-weight: 900;
       letter-spacing: .055em;
       text-transform: uppercase;
@@ -198,32 +212,23 @@
 
     .utility-button.secondary {
       color: var(--ink);
-      background: rgba(234,214,167,.7);
+      background: rgba(234,211,160,.68);
     }
-
-    .result-tools {
-      display: none;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 12px;
-    }
-
-    .result-tools.visible { display: flex; }
 
     .status-row {
       display: flex;
       justify-content: space-between;
       gap: 14px;
-      margin-top: 12px;
-      font-size: .68rem;
+      margin-top: 11px;
+      font-size: .66rem;
       font-weight: 800;
       letter-spacing: .05em;
       text-transform: uppercase;
-      opacity: .82;
+      opacity: .78;
     }
 
     .photo-wrap {
-      padding: 4px 3.4% 34px;
+      padding: 6px 3.4% 30px;
     }
 
     .photo {
@@ -232,7 +237,7 @@
       height: auto;
       transform: rotate(-.35deg);
       filter: contrast(1.04);
-      box-shadow: 8px 9px 0 rgba(21,17,13,.18);
+      box-shadow: 8px 9px 0 rgba(23,18,14,.18);
       transition: transform .35s ease;
     }
 
@@ -240,56 +245,132 @@
       transform: rotate(-.35deg) translateY(5px);
     }
 
-    .membership-card {
+    .tag-preview {
       display: none;
-      margin: 18px 6.2% 0;
-      padding: 20px;
+      margin: 18px 6.2% 6px;
+      position: relative;
+      padding: 26px 28px 24px 34px;
       border: 4px solid var(--ink);
+      border-radius: 18px 8px 14px 10px;
       background:
-        linear-gradient(rgba(234,214,167,.92), rgba(234,214,167,.92)),
-        repeating-linear-gradient(
-          -8deg,
-          transparent 0 6px,
-          rgba(0,0,0,.025) 6px 7px
-        );
-      text-align: center;
-      box-shadow: 6px 7px 0 rgba(21,17,13,.18);
-      transform: rotate(-.4deg);
+        radial-gradient(circle at 89% 13%, transparent 0 18px, rgba(23,18,14,.2) 19px 22px, transparent 23px),
+        linear-gradient(rgba(235,214,166,.95), rgba(225,199,144,.95)),
+        repeating-linear-gradient(-7deg, transparent 0 7px, rgba(0,0,0,.025) 7px 8px);
+      box-shadow: 7px 8px 0 rgba(23,18,14,.18);
+      transform: rotate(-.55deg);
+      overflow: hidden;
     }
 
-    .membership-card.visible {
+    .tag-preview.visible {
       display: block;
       animation: reveal .35s ease;
     }
 
-    .membership-card small {
-      display: block;
+    .tag-preview::before {
+      content: "";
+      position: absolute;
+      width: 92px;
+      height: 92px;
+      right: 7%;
+      bottom: -28px;
+      border: 8px solid rgba(95,53,32,.12);
+      border-radius: 50%;
+    }
+
+    .tag-hole {
+      position: absolute;
+      top: 22px;
+      right: 28px;
+      width: 28px;
+      height: 28px;
+      border: 4px solid rgba(23,18,14,.72);
+      border-radius: 50%;
+      background: #7a5b34;
+      box-shadow: inset 0 0 0 4px rgba(255,255,255,.16);
+    }
+
+    .tag-eyebrow {
+      margin: 0 0 7px;
+      color: var(--red);
+      font-size: .72rem;
       font-weight: 900;
       letter-spacing: .18em;
       text-transform: uppercase;
     }
 
-    .membership-card h2 {
-      margin: 10px 0 6px;
-      color: var(--red);
-      font-family: Arial Black, Arial, sans-serif;
-      font-size: clamp(1.8rem, 5vw, 3.4rem);
-      line-height: 1;
+    .tag-title {
+      margin: 0 0 18px;
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      font-size: clamp(1.6rem, 4.5vw, 3rem);
+      letter-spacing: .04em;
       text-transform: uppercase;
     }
 
-    .membership-card p {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-style: italic;
+    .tag-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px 24px;
+    }
+
+    .tag-field {
+      border-top: 2px solid rgba(23,18,14,.72);
+      padding-top: 7px;
+    }
+
+    .tag-field.full { grid-column: 1 / -1; }
+
+    .tag-field small {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--faded);
+      font-size: .63rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .tag-field strong {
+      display: block;
+      font-family: "Courier New", Courier, monospace;
+      font-size: clamp(.92rem, 2.5vw, 1.35rem);
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .clearance-stamp {
+      position: absolute;
+      right: 9%;
+      top: 44%;
+      padding: 7px 12px;
+      border: 4px solid rgba(174,24,27,.7);
+      color: rgba(174,24,27,.7);
+      font-family: Impact, sans-serif;
+      font-size: clamp(.85rem, 2.4vw, 1.4rem);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transform: rotate(-9deg);
+      pointer-events: none;
+    }
+
+    .tag-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
     }
 
     footer {
       padding: 0 28px 28px;
       text-align: center;
-      font-size: .66rem;
+      font-size: .64rem;
       line-height: 1.5;
       opacity: .68;
+    }
+
+    .lost-papers {
+      display: block;
+      margin-top: 7px;
+      font-style: italic;
     }
 
     @keyframes stamp {
@@ -299,8 +380,8 @@
     }
 
     @keyframes reveal {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(8px) rotate(-.55deg); }
+      to { opacity: 1; transform: translateY(0) rotate(-.55deg); }
     }
 
     @media (max-width: 560px) {
@@ -309,6 +390,15 @@
       .field-row { grid-template-columns: 1fr; }
       .action-button { min-height: 58px; }
       .status-row { flex-direction: column; gap: 4px; }
+      .tag-grid { grid-template-columns: 1fr; }
+      .tag-field.full { grid-column: auto; }
+      .clearance-stamp { position: static; display: inline-block; margin-top: 18px; }
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .site > .content > *:not(.tag-preview) { display: none !important; }
+      .tag-preview { display: block !important; margin: 0; box-shadow: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -318,63 +408,110 @@
 </head>
 <body>
   <main class="site">
-    <img class="header-art" src="header-art.png" alt="Travelling Wilburys — What Is Your Wilbury Name?">
+    <div class="content">
+      <img class="header-art" src="header-art.png" alt="Travelling Wilburys — What Is Your Wilbury Name?">
 
-    <p class="quote">“Someday everybody gonna be a Wilbury.”</p>
+      <p class="quote">“Someday everybody gonna be a Wilbury.”</p>
 
-    <form class="generator" id="generatorForm">
-      <label class="field-label" id="fieldLabel" for="personName">Enter your name</label>
+      <form class="generator" id="generatorForm">
+        <label class="field-label" id="fieldLabel" for="personName">Enter your name</label>
 
-      <div class="field-row">
-        <div class="name-panel" id="namePanel">
-          <input
-            class="name-input"
-            id="personName"
-            type="text"
-            maxlength="80"
-            autocomplete="name"
-            placeholder="Your Name Here"
-            required
-          >
-          <p class="result-name" id="resultName" aria-live="polite"></p>
+        <div class="field-row">
+          <div class="name-panel" id="namePanel">
+            <input
+              class="name-input"
+              id="personName"
+              type="text"
+              maxlength="80"
+              autocomplete="name"
+              placeholder="Your Name Here"
+              required
+            >
+            <p class="result-name" id="resultName" aria-live="polite"></p>
+          </div>
+
+          <button class="action-button" id="actionButton" type="submit">Find Out</button>
         </div>
 
-        <button class="action-button" id="actionButton" type="submit">Find Out</button>
+        <div class="utilities">
+          <button class="utility-button secondary" id="randomButton" type="button">Random Name</button>
+          <button class="utility-button secondary" id="soundButton" type="button">Sound: On</button>
+        </div>
+
+        <div class="result-tools" id="resultTools">
+          <button class="utility-button" id="copyButton" type="button">Copy My Name</button>
+          <button class="utility-button" id="shareButton" type="button">Copy Share Link</button>
+          <button class="utility-button" id="documentButton" type="button">Issue Travel Document</button>
+        </div>
+
+        <div class="status-row">
+          <span id="counterText">0 Wilburys inducted on this device</span>
+          <span id="statusText"></span>
+        </div>
+      </form>
+
+      <section class="tag-preview" id="tagPreview" aria-live="polite">
+        <span class="tag-hole" aria-hidden="true"></span>
+        <p class="tag-eyebrow">Travelling Wilburys</p>
+        <h2 class="tag-title">Travel Document</h2>
+
+        <div class="tag-grid">
+          <div class="tag-field full">
+            <small>Name</small>
+            <strong id="tagName"></strong>
+          </div>
+
+          <div class="tag-field">
+            <small>Destination</small>
+            <strong id="tagDestination"></strong>
+          </div>
+
+          <div class="tag-field">
+            <small>Via</small>
+            <strong id="tagVia"></strong>
+          </div>
+
+          <div class="tag-field">
+            <small>Route</small>
+            <strong id="tagRoute"></strong>
+          </div>
+
+          <div class="tag-field">
+            <small>Baggage No.</small>
+            <strong id="tagNumber"></strong>
+          </div>
+
+          <div class="tag-field">
+            <small>Checked By</small>
+            <strong id="tagChecked"></strong>
+          </div>
+
+          <div class="tag-field">
+            <small>Status</small>
+            <strong>Cleared for Travelling</strong>
+          </div>
+        </div>
+
+        <div class="clearance-stamp">Handle With Care</div>
+
+        <div class="tag-actions">
+          <button class="utility-button" id="downloadTagButton" type="button">Download Tag</button>
+          <button class="utility-button secondary" id="printTagButton" type="button">Print Tag</button>
+        </div>
+      </section>
+
+      <div class="photo-wrap" id="photoWrap">
+        <img class="photo" src="wilburys-photo.png" alt="Vintage-style photograph of the Traveling Wilburys">
       </div>
 
-      <div class="utilities">
-        <button class="utility-button secondary" id="randomButton" type="button">Random Name</button>
-        <button class="utility-button secondary" id="soundButton" type="button">Sound: On</button>
-      </div>
+      <canvas id="tagCanvas" width="1400" height="900" hidden></canvas>
 
-      <div class="result-tools" id="resultTools">
-        <button class="utility-button" id="copyButton" type="button">Copy My Name</button>
-        <button class="utility-button" id="shareButton" type="button">Copy Share Link</button>
-        <button class="utility-button" id="cardButton" type="button">Make Membership Card</button>
-      </div>
-
-      <div class="status-row">
-        <span id="counterText">0 Wilburys inducted on this device</span>
-        <span id="statusText"></span>
-      </div>
-    </form>
-
-    <section class="membership-card" id="membershipCard" aria-live="polite">
-      <small>Official Family Registry</small>
-      <h2 id="cardName"></h2>
-      <p>Someday everybody gonna be a Wilbury.</p>
-    </section>
-
-    <div class="photo-wrap" id="photoWrap">
-      <img class="photo" src="wilburys-photo.png" alt="Vintage-style photograph of the Traveling Wilburys">
+      <footer>
+        Fan-made novelty project. Not affiliated with the Traveling Wilburys,
+        their estates, labels, roadies, cousins or mysterious half-brothers.
+        <span class="lost-papers">Lost your travel papers? Enter your name again. We’ll find you.</span>
+      </footer>
     </div>
-
-    <canvas id="cardCanvas" width="1200" height="700" hidden></canvas>
-
-    <footer>
-      Fan-made novelty project. Not affiliated with the Traveling Wilburys,
-      their estates, labels, roadies, cousins or mysterious half-brothers.
-    </footer>
   </main>
 
   <script>
@@ -394,6 +531,34 @@
       dhani: "Wilbury By Blood",
       "dhani harrison": "Wilbury By Blood"
     };
+
+    const specialTravel = {
+      "jeff lynne": { destination: "Xanadu", via: "Shangri-La", checked: "Otis" },
+      jeff: { destination: "Xanadu", via: "Shangri-La", checked: "Otis" },
+      "george harrison": { destination: "Shangri-La", via: "Cloud Nine", checked: "Nelson" },
+      george: { destination: "Shangri-La", via: "Cloud Nine", checked: "Nelson" },
+      "tom petty": { destination: "The Great Wide Open", via: "End of the Line", checked: "Charlie T." },
+      tom: { destination: "The Great Wide Open", via: "End of the Line", checked: "Charlie T." },
+      "roy orbison": { destination: "Mystery Girl", via: "Only the Lonely", checked: "Lefty" },
+      roy: { destination: "Mystery Girl", via: "Only the Lonely", checked: "Lefty" },
+      "bob dylan": { destination: "Highway 61", via: "Shelter from the Storm", checked: "Lucky" },
+      bob: { destination: "Highway 61", via: "Shelter from the Storm", checked: "Lucky" }
+    };
+
+    const destinations = [
+      "End of the Line","Handle With Care","Heading for the Light","New Blue Moon",
+      "Dirty World","Rattled","Last Night","Congratulations","She's My Baby",
+      "Wilbury Twist","Margarita","Not Alone Any More","Tweeter & the Monkey Man",
+      "Xanadu","Eldorado","Shangri-La","Cloud Nine","The Great Wide Open",
+      "Mystery Girl","Highway 61","Any Road","Learning to Fly","Blue Bayou"
+    ];
+
+    const viaStops = [
+      "Shangri-La","Xanadu","Eldorado","New Blue Moon","Cloud Nine",
+      "End of the Line","Heading for the Light","The Great Wide Open"
+    ];
+
+    const checkedBy = ["Otis","Nelson","Lucky","Lefty","Charlie T."];
 
     const maleAliases = [
       "Amos","Arlo","Buster","Clyde","Clem","Cornelius","Dewey","Elmer",
@@ -493,7 +658,7 @@
       return clean(value).split(" ")[0].toLowerCase().replace(/[^a-z'-]/g, "");
     }
 
-    function generateName(fullName) {
+    function generateAlias(fullName) {
       const cleaned = clean(fullName);
       const fullKey = cleaned.toLowerCase();
       const first = firstName(cleaned);
@@ -519,6 +684,34 @@
       return `${aliases[seed % aliases.length]}${middles[(seed >>> 5) % middles.length]} ${suffixes[(seed >>> 11) % suffixes.length]}`;
     }
 
+    function generateTravel(fullName) {
+      const cleaned = clean(fullName);
+      const key = cleaned.toLowerCase();
+      const first = firstName(cleaned);
+
+      if (specialTravel[key]) return specialTravel[key];
+      if (specialTravel[first]) return specialTravel[first];
+
+      const seed = hashString(key);
+      const rare = seed % 250 === 0;
+
+      return {
+        destination: rare ? "Classified" : destinations[(seed >>> 2) % destinations.length],
+        via: rare ? "Ask Otis" : viaStops[(seed >>> 7) % viaStops.length],
+        checked: checkedBy[(seed >>> 13) % checkedBy.length]
+      };
+    }
+
+    function baggageNumber(fullName) {
+      const seed = hashString(clean(fullName).toLowerCase());
+      return `WB-${String(seed % 1000000).padStart(6, "0")}`;
+    }
+
+    function routeCode(fullName) {
+      const seed = hashString(clean(fullName).toLowerCase());
+      return `TW-${88 + (seed % 3)}`;
+    }
+
     const form = document.getElementById("generatorForm");
     const input = document.getElementById("personName");
     const panel = document.getElementById("namePanel");
@@ -530,17 +723,17 @@
     const resultTools = document.getElementById("resultTools");
     const copyButton = document.getElementById("copyButton");
     const shareButton = document.getElementById("shareButton");
-    const cardButton = document.getElementById("cardButton");
+    const documentButton = document.getElementById("documentButton");
     const counterText = document.getElementById("counterText");
     const statusText = document.getElementById("statusText");
-    const membershipCard = document.getElementById("membershipCard");
-    const cardName = document.getElementById("cardName");
+    const tagPreview = document.getElementById("tagPreview");
     const photoWrap = document.getElementById("photoWrap");
-    const canvas = document.getElementById("cardCanvas");
+    const canvas = document.getElementById("tagCanvas");
 
     let showingResult = false;
     let currentCivilianName = "";
     let currentAlias = "";
+    let currentTravel = null;
     let soundEnabled = localStorage.getItem("wilburySound") !== "off";
     let count = Number(localStorage.getItem("wilburyCount") || 0);
 
@@ -554,7 +747,7 @@
       setStatus.timer = setTimeout(() => statusText.textContent = "", 1800);
     }
 
-    function playChord() {
+    function playStamp() {
       if (!soundEnabled) return;
 
       const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -562,44 +755,63 @@
 
       const ctx = new AudioContext();
       const now = ctx.currentTime;
-      const frequencies = [196, 246.94, 293.66, 392];
 
-      frequencies.forEach((frequency, index) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = "triangle";
-        osc.frequency.value = frequency;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "square";
+      osc.frequency.setValueAtTime(110, now);
+      osc.frequency.exponentialRampToValueAtTime(55, now + .09);
+      gain.gain.setValueAtTime(.0001, now);
+      gain.gain.exponentialRampToValueAtTime(.08, now + .008);
+      gain.gain.exponentialRampToValueAtTime(.001, now + .12);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + .13);
 
-        gain.gain.setValueAtTime(0, now);
-        gain.gain.linearRampToValueAtTime(.045, now + index * .035 + .02);
-        gain.gain.exponentialRampToValueAtTime(.001, now + .75 + index * .04);
+      const buffer = ctx.createBuffer(1, ctx.sampleRate * .08, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
 
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now + index * .035);
-        osc.stop(now + .85 + index * .04);
-      });
+      const noise = ctx.createBufferSource();
+      const noiseGain = ctx.createGain();
+      noise.buffer = buffer;
+      noiseGain.gain.setValueAtTime(.045, now);
+      noiseGain.gain.exponentialRampToValueAtTime(.001, now + .08);
+      noise.connect(noiseGain);
+      noiseGain.connect(ctx.destination);
+      noise.start(now);
 
-      setTimeout(() => ctx.close(), 1100);
+      setTimeout(() => ctx.close(), 450);
+    }
+
+    function fillTag() {
+      document.getElementById("tagName").textContent = currentAlias;
+      document.getElementById("tagDestination").textContent = currentTravel.destination;
+      document.getElementById("tagVia").textContent = currentTravel.via;
+      document.getElementById("tagRoute").textContent = routeCode(currentCivilianName);
+      document.getElementById("tagNumber").textContent = baggageNumber(currentCivilianName);
+      document.getElementById("tagChecked").textContent = currentTravel.checked;
     }
 
     function showResult(civilianName, pushUrl = true) {
       currentCivilianName = clean(civilianName);
-      currentAlias = generateName(currentCivilianName);
+      currentAlias = generateAlias(currentCivilianName);
+      currentTravel = generateTravel(currentCivilianName);
 
       resultName.textContent = currentAlias;
       panel.classList.add("result-mode");
       label.textContent = "Your Wilbury name";
       actionButton.textContent = "Again";
       resultTools.classList.add("visible");
-      membershipCard.classList.remove("visible");
+      tagPreview.classList.remove("visible");
       photoWrap.classList.add("inducted");
       showingResult = true;
 
       count += 1;
       localStorage.setItem("wilburyCount", String(count));
       updateCounter();
-      playChord();
+      playStamp();
 
       if (pushUrl) {
         const url = new URL(window.location.href);
@@ -614,7 +826,7 @@
       label.textContent = "Enter your name";
       actionButton.textContent = "Find Out";
       resultTools.classList.remove("visible");
-      membershipCard.classList.remove("visible");
+      tagPreview.classList.remove("visible");
       photoWrap.classList.remove("inducted");
       input.value = "";
       input.focus();
@@ -640,7 +852,6 @@
 
     randomButton.addEventListener("click", () => {
       const randomName = randomCivilianNames[Math.floor(Math.random() * randomCivilianNames.length)];
-      input.value = randomName;
       if (showingResult) resetGenerator();
       input.value = randomName;
       showResult(randomName);
@@ -650,7 +861,7 @@
       soundEnabled = !soundEnabled;
       localStorage.setItem("wilburySound", soundEnabled ? "on" : "off");
       soundButton.textContent = `Sound: ${soundEnabled ? "On" : "Off"}`;
-      if (soundEnabled) playChord();
+      if (soundEnabled) playStamp();
     });
 
     copyButton.addEventListener("click", async () => {
@@ -665,7 +876,7 @@
     shareButton.addEventListener("click", async () => {
       const url = new URL(window.location.href);
       url.searchParams.set("name", currentCivilianName);
-      const message = `I'm ${currentAlias}. Find your Wilbury name: ${url}`;
+      const message = `I'm ${currentAlias}, travelling via ${currentTravel.via} to ${currentTravel.destination}. Find your Wilbury name: ${url}`;
 
       try {
         await navigator.clipboard.writeText(message);
@@ -675,58 +886,100 @@
       }
     });
 
-    cardButton.addEventListener("click", () => {
-      cardName.textContent = currentAlias;
-      membershipCard.classList.add("visible");
+    documentButton.addEventListener("click", () => {
+      fillTag();
+      tagPreview.classList.add("visible");
+      setTimeout(() => tagPreview.scrollIntoView({ behavior: "smooth", block: "center" }), 50);
+    });
 
+    document.getElementById("printTagButton").addEventListener("click", () => window.print());
+
+    document.getElementById("downloadTagButton").addEventListener("click", () => {
       const ctx = canvas.getContext("2d");
-      ctx.fillStyle = "#b58b4d";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const w = canvas.width;
+      const h = canvas.height;
+      const seed = hashString(currentCivilianName.toLowerCase());
 
-      for (let i = 0; i < 1800; i++) {
-        const shade = 110 + Math.floor(Math.random() * 55);
-        ctx.fillStyle = `rgba(${shade},${shade - 25},${shade - 55},.08)`;
-        ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 2, 2);
+      ctx.clearRect(0, 0, w, h);
+
+      const grad = ctx.createLinearGradient(0, 0, 0, h);
+      grad.addColorStop(0, "#ead8aa");
+      grad.addColorStop(1, "#d8b777");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+
+      for (let i = 0; i < 4500; i++) {
+        const shade = 80 + ((seed + i * 17) % 90);
+        ctx.fillStyle = `rgba(${shade},${Math.max(0, shade-20)},${Math.max(0, shade-45)},.055)`;
+        ctx.fillRect((seed * (i + 3)) % w, (seed + i * 41) % h, 2, 2);
       }
 
-      ctx.strokeStyle = "#15110d";
-      ctx.lineWidth = 12;
-      ctx.strokeRect(40, 40, 1120, 620);
+      ctx.strokeStyle = "#17120e";
+      ctx.lineWidth = 14;
+      ctx.strokeRect(28, 28, w - 56, h - 56);
 
-      ctx.fillStyle = "#b6191c";
-      ctx.fillRect(70, 75, 1060, 150);
+      ctx.fillStyle = "#ae181b";
+      ctx.fillRect(55, 55, 940, 150);
 
-      ctx.fillStyle = "#ead6a7";
-      ctx.font = "900 58px Arial";
-      ctx.textAlign = "center";
-      ctx.fillText("OFFICIAL WILBURY FAMILY REGISTRY", 600, 170);
+      ctx.fillStyle = "#ead3a0";
+      ctx.font = "900 64px Arial";
+      ctx.textAlign = "left";
+      ctx.fillText("TRAVELLING WILBURYS", 90, 132);
+      ctx.font = "900 48px Arial";
+      ctx.fillText("TRAVEL DOCUMENT", 90, 184);
 
-      ctx.fillStyle = "#15110d";
+      ctx.strokeStyle = "rgba(23,18,14,.65)";
+      ctx.lineWidth = 3;
+
+      function field(label, value, x, y, width, fontSize=44) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + width, y);
+        ctx.stroke();
+
+        ctx.fillStyle = "rgba(23,18,14,.68)";
+        ctx.font = "900 22px Arial";
+        ctx.fillText(label.toUpperCase(), x, y + 30);
+
+        ctx.fillStyle = "#17120e";
+        ctx.font = `900 ${fontSize}px Courier New`;
+        ctx.fillText(value.toUpperCase(), x, y + 82);
+      }
+
+      field("Name", currentAlias, 80, 260, 1240, 54);
+      field("Destination", currentTravel.destination, 80, 390, 590, 44);
+      field("Via", currentTravel.via, 730, 390, 590, 44);
+      field("Route", routeCode(currentCivilianName), 80, 520, 360, 42);
+      field("Baggage No.", baggageNumber(currentCivilianName), 500, 520, 420, 42);
+      field("Checked By", currentTravel.checked, 980, 520, 340, 42);
+
+      ctx.save();
+      ctx.translate(1000, 700);
+      ctx.rotate(-0.12);
+      ctx.strokeStyle = "rgba(174,24,27,.72)";
+      ctx.fillStyle = "rgba(174,24,27,.72)";
+      ctx.lineWidth = 10;
+      ctx.strokeRect(-260, -55, 520, 110);
       ctx.font = "900 44px Arial";
-      ctx.fillText("THIS CERTIFIES THAT", 600, 300);
+      ctx.textAlign = "center";
+      ctx.fillText("HANDLE WITH CARE", 0, 16);
+      ctx.restore();
 
-      let size = 88;
-      do {
-        ctx.font = `900 ${size}px Arial`;
-        size -= 2;
-      } while (ctx.measureText(currentAlias.toUpperCase()).width > 1040 && size > 42);
+      ctx.beginPath();
+      ctx.arc(1255, 115, 34, 0, Math.PI * 2);
+      ctx.fillStyle = "#70532f";
+      ctx.fill();
+      ctx.strokeStyle = "#17120e";
+      ctx.lineWidth = 10;
+      ctx.stroke();
 
-      ctx.fillStyle = "#b6191c";
-      ctx.fillText(currentAlias.toUpperCase(), 600, 430);
-
-      ctx.fillStyle = "#15110d";
-      ctx.font = "italic 38px Georgia";
-      ctx.fillText("Someday everybody gonna be a Wilbury.", 600, 525);
-
-      ctx.font = "800 25px Arial";
-      ctx.fillText("UNOFFICIAL • FAN-MADE • HANDLE WITH CARE", 600, 610);
-
+      const filename = `${baggageNumber(currentCivilianName)}-${currentAlias.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "")}-Travel-Document.png`;
       const link = document.createElement("a");
-      link.download = `${currentAlias.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}-membership-card.png`;
+      link.download = filename;
       link.href = canvas.toDataURL("image/png");
       link.click();
 
-      setStatus("Membership card saved");
+      setStatus("Travel document saved");
     });
 
     soundButton.textContent = `Sound: ${soundEnabled ? "On" : "Off"}`;
