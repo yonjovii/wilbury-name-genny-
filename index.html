@@ -6,6 +6,14 @@
   <meta name="description" content="Discover your unofficial Wilbury name.">
   <title>What Is Your Wilbury Name?</title>
   <style>
+    :root {
+      --paper: #aa8349;
+      --paper-light: #c19a5c;
+      --ink: #15110d;
+      --red: #b6191c;
+      --cream: #ead6a7;
+    }
+
     * { box-sizing: border-box; }
 
     html, body {
@@ -16,173 +24,263 @@
     body {
       display: grid;
       place-items: center;
-      padding: 20px;
-      background: #74572f;
+      padding: 22px;
+      color: var(--ink);
+      background: #765a34;
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    .poster {
-      position: relative;
+    .site {
       width: min(100%, 768px);
-      aspect-ratio: 2 / 3;
       overflow: hidden;
-      background: url("poster-clean.png") center / 100% 100% no-repeat;
-      box-shadow: 0 28px 80px rgba(0,0,0,.48);
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,.025) 0 1px,
+          rgba(0,0,0,.025) 1px 3px
+        ),
+        linear-gradient(var(--paper-light), var(--paper));
+      box-shadow: 0 28px 80px rgba(0,0,0,.45);
+    }
+
+    .header-art {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .quote {
+      margin: 18px 24px 16px;
+      text-align: center;
+      font-size: clamp(.9rem, 2.4vw, 1.28rem);
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: .025em;
+      text-transform: uppercase;
+    }
+
+    .quote::after {
+      content: "";
+      display: block;
+      width: 34%;
+      height: 3px;
+      margin: 10px auto 0;
+      background: var(--red);
+    }
+
+    .generator {
+      padding: 0 6.2% 22px;
+    }
+
+    .field-label {
+      display: block;
+      margin: 0 0 9px;
+      font-size: clamp(.72rem, 2vw, 1rem);
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 30%;
+      gap: 14px;
+    }
+
+    .name-panel,
+    .action-button {
+      min-height: clamp(64px, 9vw, 94px);
+      border: 4px solid var(--ink);
+    }
+
+    .name-panel {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0 clamp(16px, 4vw, 34px);
+      background:
+        linear-gradient(rgba(232,211,163,.92), rgba(232,211,163,.92)),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,.03) 0 1px,
+          rgba(0,0,0,.025) 1px 3px
+        );
     }
 
     .name-input,
-    .find-button {
-      position: absolute;
-      left: 66.5%;
-      top: 78.7%;
-      width: 27.2%;
-      height: 7.85%;
-      border: 0;
-      padding: 0;
-      cursor: pointer;
-      color: #f0dcae;
-      background: transparent;
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 900;
-      font-size: clamp(.82rem, 3vw, 2rem);
-      line-height: 1;
-      letter-spacing: .015em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .name-input {
-      left: 7.1%;
-      top: 79.55%;
-      width: 55.7%;
-      height: 6.25%;
-      padding: 0 3.8%;
+    .result-name {
+      width: 100%;
+      margin: 0;
       border: 0;
       outline: 0;
-      color: #17130f;
+      color: var(--ink);
       background: transparent;
-      font-size: clamp(1rem, 3vw, 2rem);
-      letter-spacing: .01em;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.05rem, 3.2vw, 2rem);
+      line-height: 1.1;
     }
 
     .name-input::placeholder {
-      color: rgba(23,19,15,.56);
+      color: rgba(21,17,13,.55);
       opacity: 1;
     }
 
-    .name-input:focus {
-      background: rgba(255,255,255,.09);
-      box-shadow: inset 0 0 0 3px rgba(139,22,22,.28);
-    }
-
-    .find-button {
-      left: 66.5%;
-      top: 78.7%;
-      width: 27.2%;
-      height: 7.85%;
-      border: 0;
-      padding: 0;
-      cursor: pointer;
-      color: #f0dcae;
-      background: transparent;
-      font-size: clamp(1.1rem, 4.2vw, 2.75rem);
-      letter-spacing: .02em;
-      text-transform: uppercase;
-    }
-
-    .find-button:hover {
-      background: rgba(255,255,255,.06);
-    }
-
-    .find-button:active {
-      transform: translateY(2px);
-    }
-
-    .result {
-      position: absolute;
-      left: 7%;
-      right: 7%;
-      bottom: 3.6%;
-      min-height: 8.8%;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 1.6% 3%;
-      border-top: 3px solid #17130f;
-      border-bottom: 3px solid #17130f;
-      background: rgba(170,132,72,.95);
-      text-align: center;
-    }
-
-    .result.visible {
-      display: flex;
-      animation: reveal .28s ease;
-    }
-
     .result-name {
-      margin: 0;
-      color: #17130f;
+      display: none;
       font-family: Arial Black, Arial, Helvetica, sans-serif;
-      font-size: clamp(1.45rem, 5.5vw, 3.8rem);
-      line-height: 1;
+      font-weight: 900;
+      text-align: center;
       text-transform: uppercase;
       text-wrap: balance;
     }
 
-    .copy-button {
-      position: absolute;
-      right: 7.4%;
-      bottom: 1%;
+    .name-panel.result-mode .name-input {
       display: none;
-      border: 0;
-      padding: 6px 9px;
+    }
+
+    .name-panel.result-mode .result-name {
+      display: block;
+      animation: reveal .28s ease;
+    }
+
+    .action-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
       cursor: pointer;
-      color: #f0dcae;
-      background: #17130f;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: clamp(.5rem, 1.4vw, .72rem);
-      font-weight: 800;
+      color: var(--cream);
+      background:
+        linear-gradient(rgba(182,25,28,.96), rgba(182,25,28,.96)),
+        repeating-linear-gradient(
+          0deg,
+          transparent 0 6px,
+          rgba(0,0,0,.04) 6px 7px
+        );
+      font-family: Arial Black, Arial, Helvetica, sans-serif;
+      font-size: clamp(.9rem, 3.1vw, 2rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: .015em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      box-shadow: 5px 5px 0 rgba(21,17,13,.2);
+    }
+
+    .action-button:hover {
+      filter: brightness(1.04);
+    }
+
+    .action-button:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 rgba(21,17,13,.2);
+    }
+
+    .photo-wrap {
+      padding: 0 3.4% 34px;
+    }
+
+    .photo {
+      display: block;
+      width: 100%;
+      height: auto;
+      transform: rotate(-.35deg);
+      filter: contrast(1.04);
+      box-shadow: 8px 9px 0 rgba(21,17,13,.18);
+    }
+
+    .copy-button {
+      display: none;
+      margin: 14px auto 0;
+      border: 0;
+      padding: 9px 14px;
+      cursor: pointer;
+      color: var(--cream);
+      background: var(--ink);
+      font-weight: 900;
+      letter-spacing: .07em;
       text-transform: uppercase;
     }
 
     .copy-button.visible { display: block; }
 
+    footer {
+      padding: 0 28px 28px;
+      text-align: center;
+      font-size: .66rem;
+      line-height: 1.5;
+      opacity: .68;
+    }
+
     @keyframes reveal {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 560px) {
       body { padding: 0; }
-      .poster { width: 100%; box-shadow: none; }
+
+      .site {
+        width: 100%;
+        box-shadow: none;
+      }
+
+      .field-row {
+        grid-template-columns: 1fr;
+      }
+
+      .action-button {
+        min-height: 58px;
+      }
+
+      .photo-wrap {
+        padding-top: 8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <main class="poster">
-    <form id="generatorForm">
-      <input
-        class="name-input"
-        id="personName"
-        type="text"
-        maxlength="80"
-        autocomplete="name"
-        placeholder="Your Name Here"
-        aria-label="Enter your name"
-        required
-      >
-      <button class="find-button" type="submit">Find Out</button>
+  <main class="site">
+    <img class="header-art" src="header-art.png" alt="Travelling Wilburys — What Is Your Wilbury Name?">
+
+    <p class="quote">“Someday everybody gonna be a Wilbury.”</p>
+
+    <form class="generator" id="generatorForm">
+      <label class="field-label" id="fieldLabel" for="personName">Enter your name</label>
+
+      <div class="field-row">
+        <div class="name-panel" id="namePanel">
+          <input
+            class="name-input"
+            id="personName"
+            type="text"
+            maxlength="80"
+            autocomplete="name"
+            placeholder="Your Name Here"
+            required
+          >
+          <p class="result-name" id="resultName" aria-live="polite"></p>
+        </div>
+
+        <button class="action-button" id="actionButton" type="submit">Find Out</button>
+      </div>
+
+      <button class="copy-button" id="copyButton" type="button">Copy My Name</button>
     </form>
 
-    <section class="result" id="result" aria-live="polite">
-      <p class="result-name" id="resultName"></p>
-    </section>
+    <div class="photo-wrap">
+      <img class="photo" src="wilburys-photo.png" alt="Vintage-style photograph of the Traveling Wilburys">
+    </div>
 
-    <button class="copy-button" id="copyButton" type="button">Copy Name</button>
+    <footer>
+      Fan-made novelty project. Not affiliated with the Traveling Wilburys,
+      their estates, labels, roadies, cousins or mysterious half-brothers.
+    </footer>
   </main>
 
   <script>
@@ -303,30 +401,45 @@
         middles = [...maleMiddles, ...femaleMiddles];
       }
 
-      const alias = aliases[seed % aliases.length];
-      const middle = middles[(seed >>> 5) % middles.length];
-      const suffix = suffixes[(seed >>> 11) % suffixes.length];
-
-      return `${alias}${middle} ${suffix}`;
+      return `${aliases[seed % aliases.length]}${middles[(seed >>> 5) % middles.length]} ${suffixes[(seed >>> 11) % suffixes.length]}`;
     }
 
     const form = document.getElementById("generatorForm");
     const input = document.getElementById("personName");
-    const result = document.getElementById("result");
+    const panel = document.getElementById("namePanel");
     const resultName = document.getElementById("resultName");
+    const label = document.getElementById("fieldLabel");
+    const actionButton = document.getElementById("actionButton");
     const copyButton = document.getElementById("copyButton");
+
+    let showingResult = false;
 
     form.addEventListener("submit", event => {
       event.preventDefault();
+
+      if (showingResult) {
+        showingResult = false;
+        panel.classList.remove("result-mode");
+        label.textContent = "Enter your name";
+        actionButton.textContent = "Find Out";
+        copyButton.classList.remove("visible");
+        input.value = "";
+        input.focus();
+        return;
+      }
+
       const value = input.value.trim();
-      if (!value) return input.focus();
+      if (!value) {
+        input.focus();
+        return;
+      }
 
       resultName.textContent = generateName(value);
-      result.classList.remove("visible");
-      copyButton.classList.remove("visible");
-      void result.offsetWidth;
-      result.classList.add("visible");
+      panel.classList.add("result-mode");
+      label.textContent = "Your Wilbury name";
+      actionButton.textContent = "Again";
       copyButton.classList.add("visible");
+      showingResult = true;
     });
 
     copyButton.addEventListener("click", async () => {
@@ -336,7 +449,10 @@
       } catch {
         copyButton.textContent = "Copy failed";
       }
-      setTimeout(() => copyButton.textContent = "Copy Name", 1400);
+
+      setTimeout(() => {
+        copyButton.textContent = "Copy My Name";
+      }, 1400);
     });
   </script>
 </body>
