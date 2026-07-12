@@ -1,3 +1,3 @@
-# Wilbury Name Generator V4
+# Wilbury Name Generator V6
 
-GitHub Pages-ready static website with deterministic aliases and travel documents.
+GitHub Pages-ready promotional-style baggage tag generator.
