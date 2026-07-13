@@ -1,3 +1,3 @@
-# Wilbury Name Generator V6
+# Wilbury Name Generator V8
 
-GitHub Pages-ready promotional-style baggage tag generator.
+Rebuilt vintage travel-desk edition.
