@@ -1,3 +1,3 @@
-# Wilbury Name Generator V9
+# Wilbury Name Generator V10
 
-GitHub Pages-ready build matching the approved mockup.
+Blank luggage-tag fields populate only after form submission.
