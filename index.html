@@ -1,104 +1,292 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>What Is Your Wilbury Name?</title>
+<meta name="description" content="Discover your unofficial Wilbury name and baggage tag.">
 <style>
-:root{--paper:#e6d5b2;--paper2:#cda96f;--ink:#211810;--red:#a92b24;--wood:#2b190f;--leather:#7a3d20;--leather2:#4b2414;--stitch:#d9a66d}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:22px;background:#68482c;color:var(--ink);font-family:"Courier New",monospace}
-button,input{font:inherit}.site{width:min(100%,860px);overflow:hidden;box-shadow:0 32px 100px #0008;background:var(--paper)}
-.paper{position:relative;padding:38px 44px 30px;background:repeating-linear-gradient(0deg,transparent 0 5px,#5b381a08 5px 6px),linear-gradient(#eddfc3,#dcc296)}
-.paper:after{content:"";position:absolute;inset:10px;border:1px solid #21181022;pointer-events:none}
-.top{display:grid;grid-template-columns:1fr 220px;gap:28px;align-items:start}
-.brand{margin:0 0 24px;font-family:Impact,Arial Narrow,sans-serif;font-size:clamp(3rem,8vw,6rem);line-height:.86;text-transform:uppercase;transform:rotate(-1deg)}
-.brand small{display:block;font:900 .9rem "Courier New";letter-spacing:.22em;margin-bottom:8px}.brand:after{content:"";display:block;width:58%;height:4px;margin-top:12px;background:var(--ink)}
-.polaroid{position:relative;padding:12px 12px 26px;background:#eee3cc;box-shadow:8px 10px #21181024;transform:rotate(5deg)}.polaroid img{width:100%;display:block;filter:sepia(.22) contrast(1.08)}
-.polaroid p{margin:12px 0 0;font-family:Georgia,serif;font-style:italic;text-align:center}.clip{position:absolute;top:-10px;right:12px;width:22px;height:58px;border:3px solid #706a61;border-radius:14px;transform:rotate(8deg)}
-.postmark{position:absolute;right:255px;top:34px;width:116px;height:116px;border:4px double #a92b2488;border-radius:50%;display:grid;place-items:center;color:#a92b2499;font:900 1rem Georgia;text-align:center;transform:rotate(-10deg)}
-.form{padding:24px;border:2px solid #21181055;background:#f4ead377;box-shadow:4px 5px #21181012}.form label{display:block;margin-bottom:12px;color:var(--red);font-weight:900;letter-spacing:.12em;text-transform:uppercase}
-.row{display:grid;grid-template-columns:1fr auto;gap:14px}input{min-height:62px;width:100%;border:2px solid #21181088;padding:0 18px;background:#f8efdabd;outline:none;font-size:1.05rem}
-input:focus{box-shadow:0 0 0 3px #a92b2422}.go{min-width:190px;border:0;padding:0 24px;cursor:pointer;color:#f4ead3;background:var(--red);font:1.7rem Impact,Arial Narrow,sans-serif;letter-spacing:.05em;text-transform:uppercase;box-shadow:5px 5px #21181033}.go:active{transform:translate(3px,3px);box-shadow:2px 2px #21181033}
-.tagline{text-align:center;margin:14px 0 0;font-size:.8rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
-.desk{position:relative;min-height:625px;padding:54px 52px 38px;background:repeating-linear-gradient(3deg,#fff1 0 1px,transparent 1px 7px),linear-gradient(#432819,#24150e);box-shadow:inset 0 18px 24px #0004}
-.desk:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 120px,#0002 121px 123px,transparent 124px 240px);opacity:.45}
-.result{display:none;position:relative;z-index:1;min-height:445px}.result.visible{display:block;animation:swing .8s cubic-bezier(.18,.86,.26,1.08)}
-.strap{position:absolute;z-index:5;left:10px;top:128px;width:250px;height:76px;border:5px solid var(--leather2);border-radius:36px;background:linear-gradient(#8d4b29,#6d351d);transform:rotate(14deg);box-shadow:7px 9px #0004}
-.strap:before{content:"";position:absolute;inset:8px;border:2px dashed var(--stitch);border-radius:25px}.buckle{position:absolute;left:-9px;top:11px;width:52px;height:50px;border:7px solid #9f9b90;border-radius:10px;box-shadow:inset 0 0 0 2px #4f4d49}
-.frame{position:absolute;right:16px;top:28px;width:77%;min-height:405px;padding:30px;clip-path:polygon(7% 0,100% 0,100% 87%,93% 100%,0 100%,0 10%);background:linear-gradient(120deg,#fff1,transparent 40%),repeating-linear-gradient(-8deg,#fff1 0 1px,transparent 1px 6px),linear-gradient(#8f4c29,#6f351d);border:5px solid var(--leather2);box-shadow:12px 14px #0004;transform:rotate(-3deg)}
-.frame:before{content:"";position:absolute;inset:10px;border:2px dashed var(--stitch);clip-path:inherit}.eyelet{position:absolute;left:20px;top:42%;width:46px;height:46px;border:8px solid #a7a093;border-radius:50%;background:#2a1910;box-shadow:inset 0 0 0 3px #4d463d}
-.insert{position:relative;z-index:2;margin-left:54px;padding:24px;background:radial-gradient(circle at 83% 81%,transparent 0 34px,#70492d26 35px 42px,transparent 43px),repeating-linear-gradient(0deg,transparent 0 24px,#21181010 25px 26px),linear-gradient(#f2e7cf,#e1cda6);border:2px solid #21181055;box-shadow:inset 0 0 25px #613b1c1f}
-.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px 26px}.field{border-bottom:2px dotted #21181066;padding-bottom:10px}.field.full{grid-column:1/-1}.field small{display:block;margin-bottom:5px;color:var(--red);font-size:.67rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.field strong{display:block;font-size:clamp(1rem,2.6vw,1.5rem);line-height:1.1;text-transform:uppercase}.name{font-size:clamp(1.7rem,4.5vw,3.2rem)!important;line-height:.95!important}
-.stamp{position:absolute;right:54px;bottom:26px;padding:8px 12px;border:4px solid #a92b2499;color:#a92b2499;font:1.5rem Impact,sans-serif;letter-spacing:.08em;text-transform:uppercase;transform:rotate(-7deg)}
-.actions{position:absolute;left:50%;bottom:-82px;transform:translateX(-50%);display:flex;gap:12px;width:max-content}.small{border:2px solid var(--ink);padding:10px 16px;cursor:pointer;background:#eadfc5;font-weight:900;text-transform:uppercase;box-shadow:3px 4px #0002}
-.trainbar{padding:22px 40px 24px;background:#d9c49a;border-top:2px solid #21181033;text-align:center;font-size:.75rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.train{margin:0 auto 8px;width:330px;max-width:80%;height:20px;background:radial-gradient(circle at 12% 80%,#211810 0 8px,transparent 9px),radial-gradient(circle at 84% 80%,#211810 0 8px,transparent 9px),linear-gradient(#211810,#211810) 20px 8px/290px 7px no-repeat;opacity:.8}
-footer{padding:18px 24px 22px;background:#d9c49a;text-align:center;font-size:.62rem;opacity:.72}
-@keyframes swing{0%{opacity:0;transform:translateY(-60px) rotate(5deg) scale(.94)}70%{opacity:1;transform:translateY(5px) rotate(-2deg) scale(1.01)}100%{transform:none}}
-@media(max-width:700px){body{padding:0}.site{width:100%}.paper{padding:28px 20px 24px}.top{grid-template-columns:1fr}.polaroid{width:70%;margin:auto}.postmark{display:none}.row{grid-template-columns:1fr}.go{min-height:58px}.desk{min-height:760px;padding:42px 18px 30px}.frame{position:relative;right:auto;top:auto;width:100%;min-height:560px}.strap{left:-20px;top:-10px;transform:rotate(-10deg) scale(.8)}.insert{margin-left:34px;padding:20px}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.stamp{position:static;display:inline-block;margin:20px 0 0 34px}.actions{bottom:-108px;flex-wrap:wrap;justify-content:center}}
+:root{
+  --ink:#251a12;
+  --red:#a92b24;
+  --cream:#ead8b0;
+  --paper:#ead9b7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:#5a3a24;
+  font-family:"Courier New",Courier,monospace;
+}
+.poster{
+  position:relative;
+  width:min(100%,768px);
+  aspect-ratio:2/3;
+  background:url("artwork.png") center/100% 100% no-repeat;
+  box-shadow:0 28px 80px rgba(0,0,0,.48);
+  overflow:hidden;
+}
+.live-input{
+  position:absolute;
+  left:8.1%;
+  top:30.05%;
+  width:44.8%;
+  height:5.2%;
+  border:0;
+  outline:0;
+  padding:0 2.8%;
+  color:var(--ink);
+  background:rgba(236,217,181,.97);
+  font-family:"Courier New",Courier,monospace;
+  font-size:clamp(.9rem,2.6vw,1.65rem);
+}
+.live-input::placeholder{color:rgba(37,26,18,.55)}
+.live-input:focus{box-shadow:inset 0 0 0 3px rgba(169,43,36,.22)}
+.find-button{
+  position:absolute;
+  left:13.5%;
+  top:37.2%;
+  width:35.4%;
+  height:5.55%;
+  border:0;
+  cursor:pointer;
+  color:#f2dec0;
+  background:rgba(169,43,36,.97);
+  font-family:"Courier New",Courier,monospace;
+  font-size:clamp(1rem,3.1vw,1.9rem);
+  font-weight:900;
+  letter-spacing:.035em;
+  text-transform:uppercase;
+  box-shadow:3px 4px 0 rgba(37,26,18,.18);
+}
+.find-button:active{transform:translateY(2px)}
+.result-panel{
+  position:absolute;
+  left:31.1%;
+  top:55.2%;
+  width:54.7%;
+  height:19.7%;
+  padding:2.1% 2.2%;
+  background:
+    radial-gradient(circle at 86% 80%,transparent 0 20px,rgba(129,87,49,.15) 21px 27px,transparent 28px),
+    linear-gradient(rgba(241,229,204,.98),rgba(227,207,169,.98));
+  border:1px solid rgba(37,26,18,.35);
+  transform:rotate(-3deg);
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:1.8% 3.2%;
+  opacity:0;
+  pointer-events:none;
+}
+.result-panel.visible{
+  opacity:1;
+  animation:tagReveal .55s cubic-bezier(.18,.86,.26,1.05);
+}
+.field{
+  border-bottom:1px dotted rgba(37,26,18,.5);
+  padding-bottom:2px;
+  min-width:0;
+}
+.field.full{grid-column:1/-1}
+.field small{
+  display:block;
+  color:var(--red);
+  font-size:clamp(.42rem,1.25vw,.72rem);
+  font-weight:900;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.field strong{
+  display:block;
+  margin-top:2px;
+  color:var(--ink);
+  font-size:clamp(.68rem,2vw,1.18rem);
+  line-height:1.05;
+  text-transform:uppercase;
+  overflow-wrap:anywhere;
+}
+.field.full strong{
+  font-size:clamp(.95rem,2.7vw,1.6rem);
+}
+.try-button,.copy-button{
+  position:absolute;
+  top:81.5%;
+  height:3.8%;
+  border:0;
+  cursor:pointer;
+  color:var(--ink);
+  background:rgba(235,218,184,.97);
+  font-family:"Courier New",Courier,monospace;
+  font-size:clamp(.55rem,1.65vw,.95rem);
+  font-weight:900;
+  text-transform:uppercase;
+}
+.try-button{left:20.6%;width:27.4%}
+.copy-button{left:51.7%;width:27.6%}
+.try-button:active,.copy-button:active{transform:translateY(2px)}
+.hidden{display:none}
+@keyframes tagReveal{
+  0%{opacity:0;transform:translateY(-24px) rotate(1deg) scale(.96)}
+  72%{opacity:1;transform:translateY(3px) rotate(-3.5deg) scale(1.01)}
+  100%{transform:translateY(0) rotate(-3deg) scale(1)}
+}
+@media(max-width:520px){
+  body{padding:0}
+  .poster{width:100%;box-shadow:none}
+}
 </style>
 </head>
 <body>
-<main class="site">
-<section class="paper">
-  <div class="top">
-    <div>
-      <h1 class="brand"><small>The</small>Travelling<br>Wilburys</h1>
-      <form class="form" id="form">
-        <label for="name">What’s your name?</label>
-        <div class="row">
-          <input id="name" maxlength="80" autocomplete="name" placeholder="Type your name here..." required>
-          <button class="go">Find Out</button>
-        </div>
-        <p class="tagline">Everyone’s a Wilbury</p>
-      </form>
-    </div>
-    <aside class="polaroid"><span class="clip"></span><img src="wilburys-photo.png" alt="The Traveling Wilburys"><p>Travel light.<br>Somewhere.</p></aside>
-  </div>
-  <div class="postmark">HANDLE<br>WITH CARE</div>
-</section>
+<main class="poster">
+  <form id="generatorForm">
+    <input class="live-input" id="personName" type="text" maxlength="80" autocomplete="name" placeholder="Type your name here..." required>
+    <button class="find-button" type="submit">Find Out</button>
+  </form>
 
-<section class="desk">
-  <div class="result" id="result">
-    <div class="strap"><span class="buckle"></span></div>
-    <article class="frame">
-      <span class="eyelet"></span>
-      <div class="insert">
-        <div class="grid">
-          <div class="field full"><small>Name</small><strong class="name" id="alias"></strong></div>
-          <div class="field"><small>Destination</small><strong id="destination"></strong></div>
-          <div class="field"><small>Baggage No.</small><strong id="number"></strong></div>
-          <div class="field"><small>Via</small><strong id="via"></strong></div>
-          <div class="field"><small>Route</small><strong id="route"></strong></div>
-          <div class="field"><small>Checked By</small><strong id="checked"></strong></div>
-        </div>
-      </div>
-      <div class="stamp">Cleared for Travelling</div>
-    </article>
-    <div class="actions"><button class="small" id="again">Try Another</button><button class="small" id="copy">Copy Details</button></div>
-  </div>
-</section>
+  <section class="result-panel" id="resultPanel" aria-live="polite">
+    <div class="field full"><small>Name</small><strong id="alias"></strong></div>
+    <div class="field"><small>Destination</small><strong id="destination"></strong></div>
+    <div class="field"><small>Baggage No.</small><strong id="number"></strong></div>
+    <div class="field"><small>Via</small><strong id="via"></strong></div>
+    <div class="field"><small>Route</small><strong id="route"></strong></div>
+    <div class="field"><small>Checked By</small><strong id="checked"></strong></div>
+  </section>
 
-<section class="trainbar"><div class="train"></div>Lost your travel papers? Enter your name again. We’ll find you.</section>
-<footer>Fan-made novelty project. Not affiliated with the Traveling Wilburys, their estates, labels, roadies, cousins or mysterious half-brothers.</footer>
+  <button class="try-button" id="againButton" type="button">Try Another</button>
+  <button class="copy-button" id="copyButton" type="button">Copy Details</button>
 </main>
 
 <script>
-const official={jeff:"Otis Wilbury","jeff lynne":"Otis Wilbury",bob:"Lucky Wilbury",robert:"Lucky Wilbury","bob dylan":"Lucky Wilbury",george:"Nelson Wilbury","george harrison":"Nelson Wilbury",tom:"Charlie T. Wilbury Jr.",thomas:"Charlie T. Wilbury Jr.","tom petty":"Charlie T. Wilbury Jr.",roy:"Lefty Wilbury","roy orbison":"Lefty Wilbury"};
-const male=["Amos","Arlo","Buster","Clyde","Clem","Cornelius","Dewey","Elmer","Elwood","Floyd","Gus","Hank","Harlan","Homer","Jasper","Jeb","Lester","Mack","Marlow","Merle","Milo","Orville","Otto","Percy","Roscoe","Rufus","Silas","Virgil","Wally","Wendell","Wiley","Zeke"];
-const female=["Birdie","Mabel","Dottie","Hattie","Pearl","Bonnie","Lula","Elsie","Josie","Daisy","Winnie","Sadie","Ruby","Cleo","Etta","Flora","June","Cora","Fern","Opal","Goldie","Alma","Delia","Lottie","Faye","Boots","Cricket","Honey","Dusty","Bessie","Dolly","Millie","Nellie","Tilly","Rosie","Lucille","Mae","Minnie","Jolene","Patsy","Betty","Maggie"];
-const femaleNames=new Set("abby abigail ada adelaide adele adriana agnes aimee alana alexandra alice alicia alison alyssa amanda amber amelia amy ana andrea angela angelina anita ann anna anne annie april ariana ashley audrey ava barbara beatrice bella belinda beth bethany betty bianca bridget brittany brooke caitlin camilla carla carmen carol caroline carolyn cassandra cassie catherine cathy charlotte chelsea cheryl chloe christina christine claire clara claudia courtney daisy danielle daphne deborah diana diane donna dorothy eden edith eileen elaine eleanor elena elise elizabeth ella ellen ellie eloise elsie emily emma erin esther eva evelyn faith faye fiona florence frances gabriella georgia gina gloria grace hannah harriet hazel heather heidi helen holly imogen irene isabel isabella ivy jacqueline jade jane janet jasmine jean jenna jennifer jessica jill joan joanna jodie josephine joy judith julia julie juliet karen kate katherine kathleen katie kayla kelly kelsey kim kirsten kylie laura lauren leah leila lena lillian lily linda lisa liv lorraine louise lucy lydia mabel madeline madison maggie maisie mandy margaret maria marie marilyn marina marisa mary matilda maureen maya megan melanie melissa mia michelle mila molly monica nadia naomi natalie natasha nicole nina nora olivia paige pamela patricia paula penelope phoebe rachel rebecca renee rita rose rosemary rosie ruby sally samantha sandra sarah savannah scarlett shannon sharon sheila shelley sophie sophia stacey stephanie susan suzanne sylvia tamara tanya tara teresa theresa tiffany tracy valerie vanessa veronica victoria violet wendy whitney yvette zoe eleni katerina sofia stella vasiliki despina".split(" "));
-const dest=["End of the Line","Handle With Care","Heading for the Light","New Blue Moon","Dirty World","Rattled","Last Night","Congratulations","She's My Baby","Wilbury Twist","Margarita","Not Alone Any More","Tweeter & the Monkey Man","Xanadu","Eldorado","Shangri-La","Cloud Nine","The Great Wide Open","Mystery Girl","Highway 61","Any Road","Learning to Fly","Blue Bayou"];
-const via=["Shangri-La","Xanadu","Eldorado","New Blue Moon","Cloud Nine","End of the Line","Heading for the Light","The Great Wide Open"],check=["Otis","Nelson","Lucky","Lefty","Charlie T."],mm=["","",""," B."," C."," J."," Ray"," Lee"," Earl"," Dean"," Joe"," Lou"],fm=["","",""," B."," C."," J."," Mae"," June"," Pearl"," Lou"," Belle"," Rose"],suffix=["Wilbury","Wilbury","Wilbury","Wilbury","Wilbury Jr.","Wilbury III"];
-function hash(v){let h=2166136261;for(let i=0;i<v.length;i++){h^=v.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
-function clean(v){return v.trim().replace(/\s+/g," ")}function first(v){return clean(v).split(" ")[0].toLowerCase().replace(/[^a-z'-]/g,"")}
-function alias(v){const k=clean(v).toLowerCase(),f=first(v);if(official[k])return official[k];if(official[f])return official[f];const s=hash(k),pool=femaleNames.has(f)?female:male,mids=femaleNames.has(f)?fm:mm;return `${pool[s%pool.length]}${mids[(s>>>5)%mids.length]} ${suffix[(s>>>11)%suffix.length]}`}
-function travel(v){const s=hash(clean(v).toLowerCase());return{destination:dest[(s>>>2)%dest.length],via:via[(s>>>7)%via.length],checked:check[(s>>>13)%check.length],route:`TW-${88+s%3}`,number:`WB-${String(s%1000000).padStart(6,"0")}`}}
-const form=document.getElementById("form"),input=document.getElementById("name"),result=document.getElementById("result");let current;
-function show(v){const t=travel(v);current={alias:alias(v),...t};aliasEl.textContent=current.alias;destination.textContent=t.destination;number.textContent=t.number;viaEl.textContent=t.via;route.textContent=t.route;checked.textContent=t.checked;result.classList.remove("visible");void result.offsetWidth;result.classList.add("visible");result.scrollIntoView({behavior:"smooth",block:"center"})}
-const aliasEl=document.getElementById("alias"),destination=document.getElementById("destination"),number=document.getElementById("number"),viaEl=document.getElementById("via"),route=document.getElementById("route"),checked=document.getElementById("checked");
-form.addEventListener("submit",e=>{e.preventDefault();const v=clean(input.value);if(v)show(v)});
-again.addEventListener("click",()=>{result.classList.remove("visible");input.value="";input.focus();scrollTo({top:0,behavior:"smooth"})});
-copy.addEventListener("click",async()=>{if(!current)return;const text=`${current.alias}\nDestination: ${current.destination}\nVia: ${current.via}\nRoute: ${current.route}\nBaggage No.: ${current.number}\nChecked by: ${current.checked}`;try{await navigator.clipboard.writeText(text);copy.textContent="Copied";setTimeout(()=>copy.textContent="Copy Details",1400)}catch{}});
+const official={
+  jeff:"Otis Wilbury","jeff lynne":"Otis Wilbury",
+  bob:"Lucky Wilbury",robert:"Lucky Wilbury","bob dylan":"Lucky Wilbury",
+  george:"Nelson Wilbury","george harrison":"Nelson Wilbury",
+  tom:"Charlie T. Wilbury Jr.",thomas:"Charlie T. Wilbury Jr.","tom petty":"Charlie T. Wilbury Jr.",
+  roy:"Lefty Wilbury","roy orbison":"Lefty Wilbury"
+};
+
+const male=[
+  "Amos","Arlo","Buster","Clyde","Clem","Cornelius","Dewey","Elmer","Elwood","Floyd",
+  "Gus","Hank","Harlan","Homer","Jasper","Jeb","Lester","Mack","Marlow","Merle","Milo",
+  "Orville","Otto","Percy","Roscoe","Rufus","Silas","Virgil","Wally","Wendell","Wiley","Zeke"
+];
+
+const female=[
+  "Birdie","Mabel","Dottie","Hattie","Pearl","Bonnie","Lula","Elsie","Josie","Daisy",
+  "Winnie","Sadie","Ruby","Cleo","Etta","Flora","June","Cora","Fern","Opal","Goldie",
+  "Alma","Delia","Lottie","Faye","Boots","Cricket","Honey","Dusty","Bessie","Dolly",
+  "Millie","Nellie","Tilly","Rosie","Lucille","Mae","Minnie","Jolene","Patsy","Betty","Maggie"
+];
+
+const femaleNames=new Set(("abby abigail ada adelaide adele adriana agnes aimee alana alexandra alice alicia alison alyssa amanda amber amelia amy ana andrea angela angelina anita ann anna anne annie april ariana ashley audrey ava barbara beatrice bella belinda beth bethany betty bianca bridget brittany brooke caitlin camilla carla carmen carol caroline carolyn cassandra cassie catherine cathy charlotte chelsea cheryl chloe christina christine claire clara claudia courtney daisy danielle daphne deborah diana diane donna dorothy eden edith eileen elaine eleanor elena elise elizabeth ella ellen ellie eloise elsie emily emma erin esther eva evelyn faith faye fiona florence frances gabriella georgia gina gloria grace hannah harriet hazel heather heidi helen holly imogen irene isabel isabella ivy jacqueline jade jane janet jasmine jean jenna jennifer jessica jill joan joanna jodie josephine joy judith julia julie juliet karen kate katherine kathleen katie kayla kelly kelsey kim kirsten kylie laura lauren leah leila lena lillian lily linda lisa liv lorraine louise lucy lydia mabel madeline madison maggie maisie mandy margaret maria marie marilyn marina marisa mary matilda maureen maya megan melanie melissa mia michelle mila molly monica nadia naomi natalie natasha nicole nina nora olivia paige pamela patricia paula penelope phoebe rachel rebecca renee rita rose rosemary rosie ruby sally samantha sandra sarah savannah scarlett shannon sharon sheila shelley sophie sophia stacey stephanie susan suzanne sylvia tamara tanya tara teresa theresa tiffany tracy valerie vanessa veronica victoria violet wendy whitney yvette zoe eleni katerina sofia stella vasiliki despina").split(" "));
+
+const destinations=[
+  "End of the Line","Handle With Care","Heading for the Light","New Blue Moon","Dirty World",
+  "Rattled","Last Night","Congratulations","She's My Baby","Wilbury Twist","Margarita",
+  "Not Alone Any More","Tweeter & the Monkey Man","Xanadu","Eldorado","Shangri-La","Cloud Nine",
+  "The Great Wide Open","Mystery Girl","Highway 61","Any Road","Learning to Fly","Blue Bayou"
+];
+
+const viaStops=["Shangri-La","Xanadu","Eldorado","New Blue Moon","Cloud Nine","End of the Line","Heading for the Light","The Great Wide Open"];
+const checkedBy=["Otis","Nelson","Lucky","Lefty","Charlie T."];
+const maleMiddles=["","",""," B."," C."," J."," Ray"," Lee"," Earl"," Dean"," Joe"," Lou"];
+const femaleMiddles=["","",""," B."," C."," J."," Mae"," June"," Pearl"," Lou"," Belle"," Rose"];
+const suffixes=["Wilbury","Wilbury","Wilbury","Wilbury","Wilbury Jr.","Wilbury III"];
+
+function hashString(value){
+  let hash=2166136261;
+  for(let i=0;i<value.length;i++){
+    hash^=value.charCodeAt(i);
+    hash=Math.imul(hash,16777619);
+  }
+  return hash>>>0;
+}
+
+function clean(value){return value.trim().replace(/\s+/g," ")}
+function firstName(value){return clean(value).split(" ")[0].toLowerCase().replace(/[^a-z'-]/g,"")}
+
+function generateAlias(fullName){
+  const cleaned=clean(fullName);
+  const key=cleaned.toLowerCase();
+  const first=firstName(cleaned);
+
+  if(official[key]) return official[key];
+  if(official[first]) return official[first];
+
+  const seed=hashString(key);
+  const isFemale=femaleNames.has(first);
+  const aliases=isFemale?female:male;
+  const middles=isFemale?femaleMiddles:maleMiddles;
+
+  return `${aliases[seed%aliases.length]}${middles[(seed>>>5)%middles.length]} ${suffixes[(seed>>>11)%suffixes.length]}`;
+}
+
+function generateTravel(fullName){
+  const seed=hashString(clean(fullName).toLowerCase());
+  return {
+    destination:destinations[(seed>>>2)%destinations.length],
+    via:viaStops[(seed>>>7)%viaStops.length],
+    checked:checkedBy[(seed>>>13)%checkedBy.length],
+    route:`TW-${88+(seed%3)}`,
+    number:`WB-${String(seed%1000000).padStart(6,"0")}`
+  };
+}
+
+const form=document.getElementById("generatorForm");
+const input=document.getElementById("personName");
+const panel=document.getElementById("resultPanel");
+const againButton=document.getElementById("againButton");
+const copyButton=document.getElementById("copyButton");
+let current=null;
+
+function showResult(name){
+  const travel=generateTravel(name);
+  current={alias:generateAlias(name),...travel};
+
+  document.getElementById("alias").textContent=current.alias;
+  document.getElementById("destination").textContent=current.destination;
+  document.getElementById("number").textContent=current.number;
+  document.getElementById("via").textContent=current.via;
+  document.getElementById("route").textContent=current.route;
+  document.getElementById("checked").textContent=current.checked;
+
+  panel.classList.remove("visible");
+  void panel.offsetWidth;
+  panel.classList.add("visible");
+}
+
+form.addEventListener("submit",event=>{
+  event.preventDefault();
+  const value=clean(input.value);
+  if(!value) return input.focus();
+  showResult(value);
+});
+
+againButton.addEventListener("click",()=>{
+  panel.classList.remove("visible");
+  input.value="";
+  input.focus();
+});
+
+copyButton.addEventListener("click",async()=>{
+  if(!current) return;
+
+  const text=`${current.alias}
+Destination: ${current.destination}
+Via: ${current.via}
+Route: ${current.route}
+Baggage No.: ${current.number}
+Checked by: ${current.checked}`;
+
+  try{
+    await navigator.clipboard.writeText(text);
+    copyButton.textContent="Copied";
+    setTimeout(()=>copyButton.textContent="Copy Details",1400);
+  }catch{}
+});
 </script>
 </body>
 </html>

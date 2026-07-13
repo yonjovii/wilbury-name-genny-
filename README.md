@@ -1,3 +1,3 @@
-# Wilbury Name Generator V8
+# Wilbury Name Generator V9
 
-Rebuilt vintage travel-desk edition.
+GitHub Pages-ready build matching the approved mockup.
