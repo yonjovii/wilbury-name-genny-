@@ -1,3 +1,3 @@
-# Wilbury Name Generator V11
+# Wilbury Name Generator V12
 
-Clean artwork with live fields only.
+Wide-layout build with results positioned directly inside the luggage tag.
