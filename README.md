@@ -1,3 +1,3 @@
-# Wilbury Name Generator V10
+# Wilbury Name Generator V11
 
-Blank luggage-tag fields populate only after form submission.
+Clean artwork with live fields only.

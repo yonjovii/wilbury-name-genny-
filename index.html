@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -6,93 +6,103 @@
 <title>What Is Your Wilbury Name?</title>
 <meta name="description" content="Discover your unofficial Wilbury name and baggage tag.">
 <style>
-:root{
-  --ink:#251a12;
-  --red:#a92b24;
-  --cream:#ead8b0;
-  --paper:#ead9b7;
-}
+:root{--ink:#251a12;--red:#94271f;--paper:#ead7ae}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%}
 body{
   display:grid;
   place-items:center;
-  padding:20px;
-  background:#5a3a24;
+  padding:18px;
+  background:#583820;
   font-family:"Courier New",Courier,monospace;
 }
 .poster{
   position:relative;
   width:min(100%,1024px);
   aspect-ratio:3/2;
-  background:url("artwork.png") center/100% 100% no-repeat;
-  box-shadow:0 28px 80px rgba(0,0,0,.48);
   overflow:hidden;
+  background:url("artwork-clean.png") center/100% 100% no-repeat;
+  box-shadow:0 30px 90px rgba(0,0,0,.5);
 }
-.live-input{
+.name-input{
   position:absolute;
-  left:9.35%;
-  top:34.25%;
-  width:42.2%;
-  height:6.5%;
+  left:9.55%;
+  top:33.85%;
+  width:42.35%;
+  height:7.2%;
   border:0;
   outline:0;
-  padding:0 2.3%;
+  padding:0 2.2%;
   color:var(--ink);
-  background:rgba(235,215,177,.97);
-  font-family:"Courier New",Courier,monospace;
-  font-size:clamp(.85rem,2.1vw,1.4rem);
+  background:transparent;
+  font-size:clamp(.8rem,2vw,1.35rem);
 }
-.live-input::placeholder{color:rgba(37,26,18,.55)}
-.live-input:focus{box-shadow:inset 0 0 0 3px rgba(169,43,36,.22)}
+.name-input::placeholder{color:rgba(37,26,18,.55)}
+.name-input:focus{box-shadow:inset 0 0 0 3px rgba(148,39,31,.18)}
 .find-button{
   position:absolute;
-  left:18.7%;
-  top:44.55%;
-  width:24.6%;
-  height:6.5%;
+  left:18.55%;
+  top:43.85%;
+  width:24.95%;
+  height:7.35%;
   border:0;
   cursor:pointer;
-  color:#efdcb7;
-  background:rgba(169,43,36,.98);
-  font-family:"Courier New",Courier,monospace;
-  font-size:clamp(.95rem,2.5vw,1.7rem);
+  color:#f0ddb9;
+  background:transparent;
+  font-size:clamp(.95rem,2.4vw,1.65rem);
   font-weight:900;
-  letter-spacing:.04em;
   text-transform:uppercase;
+  letter-spacing:.035em;
+  white-space:nowrap;
 }
 .find-button:active{transform:translateY(2px)}
-.result-panel{
+
+.tag-values{
   position:absolute;
-  left:36.5%;
-  top:55%;
-  width:38.8%;
-  height:25.9%;
-  padding:2.2% 2.15%;
-  background:
-    radial-gradient(circle at 86% 78%,transparent 0 22px,rgba(110,75,41,.14) 23px 30px,transparent 31px),
-    linear-gradient(rgba(239,224,191,.985),rgba(226,203,158,.985));
-  border:1px solid rgba(38,26,18,.28);
+  left:36.75%;
+  top:59.15%;
+  width:38.85%;
+  height:23.4%;
   transform:rotate(-1.6deg);
-  display:grid;
-  grid-template-columns:1.18fr .82fr;
-  gap:1.4% 3.2%;
-  opacity:1;
   pointer-events:none;
-  box-shadow:inset 0 0 18px rgba(97,59,28,.08);
 }
-.result-panel.visible{opacity:1;animation:paperFill .35s ease}
-.field{border-bottom:1px dotted rgba(38,26,18,.48);padding-bottom:2px;min-width:0}
-.field.full{grid-column:1/-1}
-.field small{display:block;color:var(--red);font-size:clamp(.42rem,1vw,.66rem);font-weight:900;letter-spacing:.06em;text-transform:uppercase}
-.field strong{display:block;min-height:1em;margin-top:2px;color:var(--ink);font-size:clamp(.64rem,1.55vw,1.05rem);line-height:1.05;text-transform:uppercase;overflow-wrap:anywhere;opacity:0;transform:translateY(4px);transition:opacity .28s ease,transform .28s ease}
-.field.full strong{font-size:clamp(.9rem,2vw,1.35rem)}
-.result-panel.filled strong{opacity:1;transform:translateY(0)}
-.try-button,.copy-button{position:absolute;top:88.2%;height:5%;border:0;cursor:pointer;color:var(--ink);background:rgba(233,216,182,.97);font-family:"Courier New",Courier,monospace;font-size:clamp(.48rem,1.2vw,.82rem);font-weight:900;text-transform:uppercase}
-.try-button{left:39.8%;width:15.2%}.copy-button{left:57.2%;width:16.2%}
+.value{
+  position:absolute;
+  color:var(--ink);
+  font-weight:900;
+  text-transform:uppercase;
+  line-height:1.04;
+  overflow-wrap:anywhere;
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity .26s ease,transform .26s ease;
+}
+.tag-values.filled .value{opacity:1;transform:translateY(0)}
+.v-name{left:3%;top:5%;width:68%;font-size:clamp(.88rem,2vw,1.35rem)}
+.v-destination{left:3%;top:39%;width:60%;font-size:clamp(.72rem,1.55vw,1.05rem)}
+.v-via{left:3%;top:72%;width:58%;font-size:clamp(.72rem,1.55vw,1.05rem)}
+.v-number{left:66%;top:5%;width:32%;font-size:clamp(.68rem,1.45vw,.98rem)}
+.v-route{left:66%;top:39%;width:30%;font-size:clamp(.68rem,1.45vw,.98rem)}
+.v-checked{left:66%;top:72%;width:31%;font-size:clamp(.68rem,1.45vw,.98rem)}
+
+.try-button,.copy-button{
+  position:absolute;
+  top:87.9%;
+  height:5.9%;
+  border:0;
+  cursor:pointer;
+  color:var(--ink);
+  background:transparent;
+  font-size:clamp(.5rem,1.15vw,.82rem);
+  font-weight:900;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.try-button{left:37.95%;width:16.0%}
+.copy-button{left:56.65%;width:17.75%}
 .try-button:active,.copy-button:active{transform:translateY(2px)}
-@keyframes paperFill{0%{filter:brightness(1.12)}100%{filter:brightness(1)}}
-@media(max-width:520px){
+
+@media(max-width:650px){
   body{padding:0}
   .poster{width:100%;box-shadow:none}
 }
@@ -101,17 +111,17 @@ body{
 <body>
 <main class="poster">
   <form id="generatorForm">
-    <input class="live-input" id="personName" type="text" maxlength="80" autocomplete="name" placeholder="Type your name here..." required>
+    <input class="name-input" id="personName" type="text" maxlength="80" autocomplete="name" placeholder="Type your name here..." required>
     <button class="find-button" type="submit">Find Out</button>
   </form>
 
-  <section class="result-panel" id="resultPanel" aria-live="polite">
-    <div class="field full"><small>Name</small><strong id="alias"></strong></div>
-    <div class="field"><small>Destination</small><strong id="destination"></strong></div>
-    <div class="field"><small>Baggage No.</small><strong id="number"></strong></div>
-    <div class="field"><small>Via</small><strong id="via"></strong></div>
-    <div class="field"><small>Route</small><strong id="route"></strong></div>
-    <div class="field"><small>Checked By</small><strong id="checked"></strong></div>
+  <section class="tag-values" id="tagValues" aria-live="polite">
+    <span class="value v-name" id="alias"></span>
+    <span class="value v-destination" id="destination"></span>
+    <span class="value v-via" id="via"></span>
+    <span class="value v-number" id="number"></span>
+    <span class="value v-route" id="route"></span>
+    <span class="value v-checked" id="checked"></span>
   </section>
 
   <button class="try-button" id="againButton" type="button">Try Another</button>
@@ -126,29 +136,10 @@ const official={
   tom:"Charlie T. Wilbury Jr.",thomas:"Charlie T. Wilbury Jr.","tom petty":"Charlie T. Wilbury Jr.",
   roy:"Lefty Wilbury","roy orbison":"Lefty Wilbury"
 };
-
-const male=[
-  "Amos","Arlo","Buster","Clyde","Clem","Cornelius","Dewey","Elmer","Elwood","Floyd",
-  "Gus","Hank","Harlan","Homer","Jasper","Jeb","Lester","Mack","Marlow","Merle","Milo",
-  "Orville","Otto","Percy","Roscoe","Rufus","Silas","Virgil","Wally","Wendell","Wiley","Zeke"
-];
-
-const female=[
-  "Birdie","Mabel","Dottie","Hattie","Pearl","Bonnie","Lula","Elsie","Josie","Daisy",
-  "Winnie","Sadie","Ruby","Cleo","Etta","Flora","June","Cora","Fern","Opal","Goldie",
-  "Alma","Delia","Lottie","Faye","Boots","Cricket","Honey","Dusty","Bessie","Dolly",
-  "Millie","Nellie","Tilly","Rosie","Lucille","Mae","Minnie","Jolene","Patsy","Betty","Maggie"
-];
-
+const male=["Amos","Arlo","Buster","Clyde","Clem","Cornelius","Dewey","Elmer","Elwood","Floyd","Gus","Hank","Harlan","Homer","Jasper","Jeb","Lester","Mack","Marlow","Merle","Milo","Orville","Otto","Percy","Roscoe","Rufus","Silas","Virgil","Wally","Wendell","Wiley","Zeke"];
+const female=["Birdie","Mabel","Dottie","Hattie","Pearl","Bonnie","Lula","Elsie","Josie","Daisy","Winnie","Sadie","Ruby","Cleo","Etta","Flora","June","Cora","Fern","Opal","Goldie","Alma","Delia","Lottie","Faye","Boots","Cricket","Honey","Dusty","Bessie","Dolly","Millie","Nellie","Tilly","Rosie","Lucille","Mae","Minnie","Jolene","Patsy","Betty","Maggie"];
 const femaleNames=new Set(("abby abigail ada adelaide adele adriana agnes aimee alana alexandra alice alicia alison alyssa amanda amber amelia amy ana andrea angela angelina anita ann anna anne annie april ariana ashley audrey ava barbara beatrice bella belinda beth bethany betty bianca bridget brittany brooke caitlin camilla carla carmen carol caroline carolyn cassandra cassie catherine cathy charlotte chelsea cheryl chloe christina christine claire clara claudia courtney daisy danielle daphne deborah diana diane donna dorothy eden edith eileen elaine eleanor elena elise elizabeth ella ellen ellie eloise elsie emily emma erin esther eva evelyn faith faye fiona florence frances gabriella georgia gina gloria grace hannah harriet hazel heather heidi helen holly imogen irene isabel isabella ivy jacqueline jade jane janet jasmine jean jenna jennifer jessica jill joan joanna jodie josephine joy judith julia julie juliet karen kate katherine kathleen katie kayla kelly kelsey kim kirsten kylie laura lauren leah leila lena lillian lily linda lisa liv lorraine louise lucy lydia mabel madeline madison maggie maisie mandy margaret maria marie marilyn marina marisa mary matilda maureen maya megan melanie melissa mia michelle mila molly monica nadia naomi natalie natasha nicole nina nora olivia paige pamela patricia paula penelope phoebe rachel rebecca renee rita rose rosemary rosie ruby sally samantha sandra sarah savannah scarlett shannon sharon sheila shelley sophie sophia stacey stephanie susan suzanne sylvia tamara tanya tara teresa theresa tiffany tracy valerie vanessa veronica victoria violet wendy whitney yvette zoe eleni katerina sofia stella vasiliki despina").split(" "));
-
-const destinations=[
-  "End of the Line","Handle With Care","Heading for the Light","New Blue Moon","Dirty World",
-  "Rattled","Last Night","Congratulations","She's My Baby","Wilbury Twist","Margarita",
-  "Not Alone Any More","Tweeter & the Monkey Man","Xanadu","Eldorado","Shangri-La","Cloud Nine",
-  "The Great Wide Open","Mystery Girl","Highway 61","Any Road","Learning to Fly","Blue Bayou"
-];
-
+const destinations=["End of the Line","Handle With Care","Heading for the Light","New Blue Moon","Dirty World","Rattled","Last Night","Congratulations","She's My Baby","Wilbury Twist","Margarita","Not Alone Any More","Tweeter & the Monkey Man","Xanadu","Eldorado","Shangri-La","Cloud Nine","The Great Wide Open","Mystery Girl","Highway 61","Any Road","Learning to Fly","Blue Bayou"];
 const viaStops=["Shangri-La","Xanadu","Eldorado","New Blue Moon","Cloud Nine","End of the Line","Heading for the Light","The Great Wide Open"];
 const checkedBy=["Otis","Nelson","Lucky","Lefty","Charlie T."];
 const maleMiddles=["","",""," B."," C."," J."," Ray"," Lee"," Earl"," Dean"," Joe"," Lou"];
@@ -163,26 +154,15 @@ function hashString(value){
   }
   return hash>>>0;
 }
-
 function clean(value){return value.trim().replace(/\s+/g," ")}
 function firstName(value){return clean(value).split(" ")[0].toLowerCase().replace(/[^a-z'-]/g,"")}
-
 function generateAlias(fullName){
-  const cleaned=clean(fullName);
-  const key=cleaned.toLowerCase();
-  const first=firstName(cleaned);
-
+  const cleaned=clean(fullName),key=cleaned.toLowerCase(),first=firstName(cleaned);
   if(official[key]) return official[key];
   if(official[first]) return official[first];
-
-  const seed=hashString(key);
-  const isFemale=femaleNames.has(first);
-  const aliases=isFemale?female:male;
-  const middles=isFemale?femaleMiddles:maleMiddles;
-
+  const seed=hashString(key),isFemale=femaleNames.has(first),aliases=isFemale?female:male,middles=isFemale?femaleMiddles:maleMiddles;
   return `${aliases[seed%aliases.length]}${middles[(seed>>>5)%middles.length]} ${suffixes[(seed>>>11)%suffixes.length]}`;
 }
-
 function generateTravel(fullName){
   const seed=hashString(clean(fullName).toLowerCase());
   return {
@@ -196,59 +176,59 @@ function generateTravel(fullName){
 
 const form=document.getElementById("generatorForm");
 const input=document.getElementById("personName");
-const panel=document.getElementById("resultPanel");
-const againButton=document.getElementById("againButton");
+const tagValues=document.getElementById("tagValues");
 const copyButton=document.getElementById("copyButton");
 let current=null;
-for(const id of ["alias","destination","number","via","route","checked"]){document.getElementById(id).textContent="";}
 
-function showResult(name){
+function clearTag(){
+  ["alias","destination","via","number","route","checked"].forEach(id=>document.getElementById(id).textContent="");
+  tagValues.classList.remove("filled");
+  current=null;
+}
+
+function fillTag(name){
   const travel=generateTravel(name);
   current={alias:generateAlias(name),...travel};
-
   document.getElementById("alias").textContent=current.alias;
   document.getElementById("destination").textContent=current.destination;
-  document.getElementById("number").textContent=current.number;
   document.getElementById("via").textContent=current.via;
+  document.getElementById("number").textContent=current.number;
   document.getElementById("route").textContent=current.route;
   document.getElementById("checked").textContent=current.checked;
-
-  panel.classList.remove("visible","filled");
-  void panel.offsetWidth;
-  panel.classList.add("visible","filled");
+  tagValues.classList.remove("filled");
+  void tagValues.offsetWidth;
+  tagValues.classList.add("filled");
 }
 
 form.addEventListener("submit",event=>{
   event.preventDefault();
   const value=clean(input.value);
   if(!value) return input.focus();
-  showResult(value);
+  fillTag(value);
 });
 
-againButton.addEventListener("click",()=>{
-  panel.classList.remove("visible","filled");
-  for(const id of ["alias","destination","number","via","route","checked"]){document.getElementById(id).textContent="";}
-  current=null;
+document.getElementById("againButton").addEventListener("click",()=>{
+  clearTag();
   input.value="";
   input.focus();
 });
 
 copyButton.addEventListener("click",async()=>{
   if(!current) return;
-
   const text=`${current.alias}
 Destination: ${current.destination}
 Via: ${current.via}
 Route: ${current.route}
 Baggage No.: ${current.number}
 Checked by: ${current.checked}`;
-
   try{
     await navigator.clipboard.writeText(text);
     copyButton.textContent="Copied";
     setTimeout(()=>copyButton.textContent="Copy Details",1400);
   }catch{}
 });
+
+clearTag();
 </script>
 </body>
 </html>
